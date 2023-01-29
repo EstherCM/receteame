@@ -1,13 +1,35 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const createError = require('http-errors');
+const { Recipe } = require('../model');
 module.exports.getRecipes = (req, res, next) => {
-    res.status(200).json({
-        success: true,
+    Recipe
+        .find()
+        .then((recipes) => {
+        res.status(200).json(recipes);
+    })
+        .catch((error) => {
+        console.error(error);
+        next();
     });
 };
 module.exports.getRecipe = (req, res, next) => {
     const { id } = req.params;
-    res.status(200).json({
-        success: true,
-        id,
+    const criterial = {
+        _id: id ? id : ""
+    };
+    Recipe
+        .find(criterial)
+        .then((recipe) => {
+        if (recipe.length) {
+            res.status(200).json(recipe);
+        }
+        else {
+            next(createError(404, "La receta no exite"));
+        }
+    })
+        .catch((error) => {
+        console.error(error);
+        next();
     });
 };
