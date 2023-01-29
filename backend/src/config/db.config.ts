@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const connectionURI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+mongoose.set("strictQuery", false);
 
 mongoose.connect(connectionURI);
 
@@ -13,6 +14,13 @@ mongoose.connection.on('disconnected', () => {
 
 mongoose.connection.on('error', (err: Error) => {
   console.error(`Error connecting, ${err}`);
+});
+
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.info('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
 });
 
 export {};
