@@ -29,4 +29,16 @@ const recipeSchema = new Schema({
   type: [String],
 }, {
   timestamp: true,
+  toJSON: {
+    virtuals: true,
+    transform: (doc: any, ret: any) => {
+      delete ret.__v;
+      ret.id = ret._id;
+      delete ret._id;
+      return ret;
+    },
+  }
 });
+
+const Recipe = mongoose.model('recipe', recipeSchema);
+module.exports = Recipe;
