@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose');
-const connectionURI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const connectionURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/receteame';
 mongoose.set("strictQuery", false);
 mongoose.connect(connectionURI);
 mongoose.connection.on('connected', () => {
