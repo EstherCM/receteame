@@ -23,12 +23,12 @@ app.use((error, req, res, next) => {
         data.errors = error.errors;
     }
     else if (error instanceof mongoose.Error.CastError) {
-        error = createError(404, "Recurso no encontrado");
+        error = createError(404, "Resource not found");
     }
     data.message = error.message;
     res.status(error.status);
     res.json(data);
 });
 app.listen(port, () => {
-    console.info(`Aplicacion corriendo en el puerto ${port}`);
+    console.info(`App running in port: ${port}`);
 });
