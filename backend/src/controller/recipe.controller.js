@@ -16,7 +16,7 @@ module.exports.getRecipes = (req, res, next) => {
 module.exports.getRecipe = (req, res, next) => {
     const { id } = req.params;
     const criterial = {
-        _id: id || ""
+        _id: id || ''
     };
     Recipe
         .find(criterial)
@@ -25,7 +25,7 @@ module.exports.getRecipe = (req, res, next) => {
             res.status(200).json(recipe);
         }
         else {
-            next(createError(404, "The recipe doesn't exists"));
+            next(createError(404, 'The recipe doesn\'t exists'));
         }
     })
         .catch((error) => {

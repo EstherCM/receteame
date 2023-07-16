@@ -15,7 +15,6 @@ app.use('/api/v1', router);
 
 app.use((error: any, req: any, res: any, next: any) => {
   res.status(error.status || 500);
-  console.log(error);
 
   const data = {
     errors: undefined,
@@ -26,12 +25,12 @@ app.use((error: any, req: any, res: any, next: any) => {
     error.status = 400;
     data.errors = error.errors;
   } else if (error instanceof mongoose.Error.CastError) {
-    error = createError(404, "Resource not found");
+    error = createError(404, 'Resource not found');
   }
 
   data.message = error.message;
-  res.status(error.status);
-  res.json(data);
+
+  res.status(error.status).json(data);
 })
 
 app.listen(port, () => {

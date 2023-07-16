@@ -4,6 +4,6 @@ const { recipes } = require('./recipes');
 
 Recipe
   .create(recipes)
-  .then(() => console.info("Created"))
+  .then(() => console.info('Created'))
   .catch(err => console.error(err));
 

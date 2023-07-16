@@ -13,7 +13,6 @@ app.use(logger('dev'));
 app.use('/api/v1', router);
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
-    console.log(error);
     const data = {
         errors: undefined,
         message: undefined
@@ -23,11 +22,10 @@ app.use((error, req, res, next) => {
         data.errors = error.errors;
     }
     else if (error instanceof mongoose.Error.CastError) {
-        error = createError(404, "Resource not found");
+        error = createError(404, 'Resource not found');
     }
     data.message = error.message;
-    res.status(error.status);
-    res.json(data);
+    res.status(error.status).json(data);
 });
 app.listen(port, () => {
     console.info(`App running in port: ${port}`);

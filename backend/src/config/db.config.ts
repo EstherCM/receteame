@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const connectionURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/receteame';
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', false);
 
 mongoose.connect(connectionURI);
 
