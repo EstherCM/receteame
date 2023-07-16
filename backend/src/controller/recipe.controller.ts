@@ -8,8 +8,8 @@ module.exports.getRecipes = (req: any, res: any, next: any) => {
       res.status(200).json(recipes);
     })
     .catch((error: Error) => {
-      console.error(error);
-      next();
+      console.error(`🔥 Error in getRecipes ${error}`);
+      next(error);
     })
 };
 
@@ -17,7 +17,7 @@ module.exports.getRecipe = (req: any, res: any, next: any) => {
   const { id } = req.params;
 
   const criterial = {
-    _id: id || ''
+    _id: id || '',
   };
   
   Recipe
@@ -30,8 +30,8 @@ module.exports.getRecipe = (req: any, res: any, next: any) => {
       }
     })
     .catch((error: Error) => {
-      console.error(error);
-      next();
+      console.error(`🔥 Error in getRecipe ${error}`);
+      next(error);
     })
 };
 

@@ -1,4 +1,5 @@
 "use strict";
 module.exports = {
-    recipe: require('./recipe.controller')
+    recipeCtrl: require('./recipe.controller'),
+    userCtrl: require('./user.controller')
 };

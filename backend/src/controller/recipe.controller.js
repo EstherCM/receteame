@@ -9,14 +9,14 @@ module.exports.getRecipes = (req, res, next) => {
         res.status(200).json(recipes);
     })
         .catch((error) => {
-        console.error(error);
-        next();
+        console.error(`🔥 Error in getRecipes ${error}`);
+        next(error);
     });
 };
 module.exports.getRecipe = (req, res, next) => {
     const { id } = req.params;
     const criterial = {
-        _id: id || ''
+        _id: id || '',
     };
     Recipe
         .find(criterial)
@@ -29,7 +29,7 @@ module.exports.getRecipe = (req, res, next) => {
         }
     })
         .catch((error) => {
-        console.error(error);
-        next();
+        console.error(`🔥 Error in getRecipe ${error}`);
+        next(error);
     });
 };

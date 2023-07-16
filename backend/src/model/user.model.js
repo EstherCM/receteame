@@ -2,32 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const recipeSchema = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        trim: true,
+        require: true,
     },
-    image: {
+    email: {
         type: String,
-        trim: true,
+        require: true,
     },
-    ingredients: {
-        type: [String],
-        required: true,
-    },
-    preparation: {
-        type: [String],
-        required: true,
-    },
-    people: Number,
-    time: Number,
-    notes: {
+    password: {
         type: String,
-        trim: true,
-    },
-    tags: [String],
-    type: [String],
+        require: true
+    }
 }, {
     timestamp: true,
     toJSON: {
@@ -40,5 +27,5 @@ const recipeSchema = new Schema({
         },
     }
 });
-const Recipe = mongoose.model('recipe', recipeSchema);
-module.exports = Recipe;
+const User = mongoose.model('user', userSchema);
+module.exports = User;
