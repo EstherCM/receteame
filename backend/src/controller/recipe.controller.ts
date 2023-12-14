@@ -1,10 +1,11 @@
 const createError = require('http-errors');
-const { Recipe } = require('../model');
+import { Request, Response, NextFunction } from 'express';
+import { Recipe, IRecipe } from '../model/recipe.model';
 
-module.exports.getRecipes = (req: any, res: any, next: any) => {
+module.exports.getRecipes = (req: Request, res: Response, next: NextFunction) => {
   Recipe
     .find()
-    .then((recipes: any) => {
+    .then((recipes: IRecipe[]) => {
       res.status(200).json(recipes);
     })
     .catch((error: Error) => {
@@ -13,7 +14,7 @@ module.exports.getRecipes = (req: any, res: any, next: any) => {
     })
 };
 
-module.exports.getRecipe = (req: any, res: any, next: any) => {
+module.exports.getRecipe = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   const criterial = {
@@ -22,8 +23,8 @@ module.exports.getRecipe = (req: any, res: any, next: any) => {
   
   Recipe
     .find(criterial)
-    .then((recipe: any) => {
-      if (recipe.length) {
+    .then((recipe: IRecipe) => {
+      if (recipe) {
         res.status(200).json(recipe);
       } else {
         next(createError(404, 'The recipe doesn\'t exists'));
@@ -32,7 +33,5 @@ module.exports.getRecipe = (req: any, res: any, next: any) => {
     .catch((error: Error) => {
       console.error(`🔥 Error in getRecipe ${error}`);
       next(error);
-    })
+    });
 };
-
-export {};

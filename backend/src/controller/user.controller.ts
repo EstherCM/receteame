@@ -1,10 +1,11 @@
 const createError = require('http-errors');
-const { User } = require('../model');
+import { Request, Response, NextFunction } from 'express';
+import { User, IUser } from '../model/user.model';
 
-module.exports.getUsers = (req: any, res: any, next: any) => {
+module.exports.getUsers = (req: Request, res: Response, next: NextFunction) => {
   User
     .find()
-    .then((users: any) => {
+    .then((users: IUser[]) => {
       res.status(200).json(users);
     })
     .catch((error: Error) => {
@@ -32,7 +33,5 @@ module.exports.getUser = (req: any, res: any, next: any) => {
     .catch((error: Error) => {
       console.error(`🔥 Error in getUser ${error}`);
       next(error);
-    })
+    });
 };
-
-export {};
