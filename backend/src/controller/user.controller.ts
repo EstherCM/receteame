@@ -14,7 +14,7 @@ module.exports.getUsers = (req: Request, res: Response, next: NextFunction) => {
     })
 };
 
-module.exports.getUser = (req: any, res: any, next: any) => {
+module.exports.getUser = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   const criterial = {
