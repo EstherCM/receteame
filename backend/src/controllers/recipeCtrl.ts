@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 import { Request, Response, NextFunction } from 'express';
-import { Recipe, IRecipe } from '../model/recipe.model';
+import { Recipe, IRecipe } from '../database/models/recipeModel';
 
 module.exports.getRecipes = (req: Request, res: Response, next: NextFunction) => {
   Recipe

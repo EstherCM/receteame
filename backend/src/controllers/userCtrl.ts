@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 import { Request, Response, NextFunction } from 'express';
-import { User, IUser } from '../model/user.model';
+import { User, IUser } from '../database/models/userModel';
 
 module.exports.getUsers = (req: Request, res: Response, next: NextFunction) => {
   User
