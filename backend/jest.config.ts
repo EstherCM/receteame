@@ -1,4 +1,4 @@
-import type {Config} from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   clearMocks: true,
@@ -10,7 +10,13 @@ const config: Config = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  testPathIgnorePatterns: ['/dist/']
+  testPathIgnorePatterns: ['/dist/'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/database/models/**/*.ts',
+    '!src/config/**/*.ts',
+    '!src/controllers/index.ts',
+  ],
 };
 
 export default config;

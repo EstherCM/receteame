@@ -1,6 +1,8 @@
 const { create, getById, update, remove } = require('../recipeDAO');
 const Recipe = require('../../models/recipeModel');
 
+console.error = jest.fn();
+
 describe('[recipeDAO] unit test', () => {
   describe('create', () => {
     const createMock = jest.fn();
