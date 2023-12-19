@@ -15,8 +15,8 @@ describe('[recipeDAO] unit test', () => {
         people: 4,
         time: 240,
         notes: 'mockedNotes',
-        tags: ['Tag1','Tag2'],
-        type: ['Type1','Type2'],
+        tags: ['Tag1', 'Tag2'],
+        type: ['Type1', 'Type2'],
       };
 
       const createdRecipe = { ...mockedNewRecipe, _id: 'mockedRecipeId' };
@@ -46,8 +46,8 @@ describe('[recipeDAO] unit test', () => {
         people: 4,
         time: 240,
         notes: 'mockedNotes',
-        tags: ['Tag1','Tag2'],
-        type: ['Type1','Type2'],
+        tags: ['Tag1', 'Tag2'],
+        type: ['Type1', 'Type2'],
       };
 
       const mockedError = new Error('Error creating recipe');
@@ -76,8 +76,8 @@ describe('[recipeDAO] unit test', () => {
           people: 4,
           time: 240,
           notes: 'mockedNotes',
-          tags: ['Tag1','Tag2'],
-          type: ['Type1','Type2'],
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
         },
         {
           _id: '2',
@@ -88,8 +88,8 @@ describe('[recipeDAO] unit test', () => {
           people: 4,
           time: 240,
           notes: 'mockedNotes',
-          tags: ['Tag1','Tag2'],
-          type: ['Type1','Type2'],
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
         },
       ];
 
@@ -98,7 +98,7 @@ describe('[recipeDAO] unit test', () => {
       const result = await getById('1');
 
       expect(result).toEqual(recipes[0]);
-      expect(getMock).toHaveBeenCalledWith({_id: '1'});
+      expect(getMock).toHaveBeenCalledWith({ _id: '1' });
     });
 
     it('should return error when recipe couldn\'t be returned', async () => {
@@ -127,8 +127,8 @@ describe('[recipeDAO] unit test', () => {
         people: 4,
         time: 240,
         notes: 'mockedNotes',
-        tags: ['Tag1','Tag2'],
-        type: ['Type1','Type2'],
+        tags: ['Tag1', 'Tag2'],
+        type: ['Type1', 'Type2'],
       };
       const id = 'mockedId';
       const mockResult = { ...updatedRecipeData };
@@ -137,7 +137,9 @@ describe('[recipeDAO] unit test', () => {
       const result = await update(id, updatedRecipeData);
 
       expect(result).toEqual(mockResult);
-      expect(updateMock).toHaveBeenCalledWith({ _id: id }, updatedRecipeData, { new: true });
+      expect(updateMock).toHaveBeenCalledWith({ _id: id }, updatedRecipeData, {
+        new: true,
+      });
     });
 
     it('should return error when recipe couldn\'t be returned', async () => {
@@ -150,8 +152,8 @@ describe('[recipeDAO] unit test', () => {
         people: 4,
         time: 240,
         notes: 'mockedNotes',
-        tags: ['Tag1','Tag2'],
-        type: ['Type1','Type2'],
+        tags: ['Tag1', 'Tag2'],
+        type: ['Type1', 'Type2'],
       };
       const id = 'mockedId';
       const mockError = new Error('Error updating recipe');
@@ -162,7 +164,9 @@ describe('[recipeDAO] unit test', () => {
       } catch (e) {
         expect(e).toEqual(mockError);
       }
-      expect(updateMock).toHaveBeenCalledWith({ _id: id }, updatedRecipeData, { new: true });
+      expect(updateMock).toHaveBeenCalledWith({ _id: id }, updatedRecipeData, {
+        new: true,
+      });
     });
   });
 
