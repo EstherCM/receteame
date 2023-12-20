@@ -1,4 +1,4 @@
-const { create, getById, update, remove } = require('../recipeDAO');
+import { create, getBy, update, remove } from '../recipeDAO';
 const Recipe = require('../../models/recipeModel');
 
 console.error = jest.fn();
@@ -63,11 +63,11 @@ describe('[recipeDAO] unit test', () => {
     });
   });
 
-  describe('getById', () => {
+  describe('getBy', () => {
     const getMock = jest.fn();
     Recipe.find = getMock;
 
-    it('should get a recipe', async () => {
+    it('should get a recipe by id', async () => {
       const recipes = [
         {
           _id: '1',
@@ -97,10 +97,46 @@ describe('[recipeDAO] unit test', () => {
 
       getMock.mockResolvedValue(recipes[0]);
 
-      const result = await getById('1');
+      const result = await getBy({ _id: '1' });
 
       expect(result).toEqual(recipes[0]);
       expect(getMock).toHaveBeenCalledWith({ _id: '1' });
+    });
+
+    it('should get a recipe by name', async () => {
+      const recipes = [
+        {
+          _id: '1',
+          name: 'recipe1',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+        {
+          _id: '2',
+          name: 'recipe2',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ];
+
+      getMock.mockResolvedValue(recipes[1]);
+
+      const result = await getBy({ name: 'recipe2' });
+
+      expect(result).toEqual(recipes[1]);
+      expect(getMock).toHaveBeenCalledWith({ name: 'recipe2' });
     });
 
     it('should return error when recipe couldn\'t be returned', async () => {
@@ -108,7 +144,7 @@ describe('[recipeDAO] unit test', () => {
       getMock.mockRejectedValue(mockedError);
 
       try {
-        await getById('1');
+        await getBy({ _id: '1' });
       } catch (e) {
         expect(e).toEqual(mockedError);
       }
