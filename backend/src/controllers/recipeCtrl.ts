@@ -1,37 +1,52 @@
-const createError = require('http-errors');
 import { Request, Response, NextFunction } from 'express';
-import { Recipe, IRecipe } from '../database/models/recipeModel';
+const RecipeService = require('../services/recipeService');
 
-module.exports.getRecipes = (req: Request, res: Response, next: NextFunction) => {
-  Recipe
-    .find()
-    .then((recipes: IRecipe[]) => {
-      res.status(200).json(recipes);
-    })
-    .catch((error: Error) => {
-      console.error(`🔥 Error in getRecipes ${error}`);
-      next(error);
-    })
+export const create = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const createdRecipe = await RecipeService.create(req.body);
+
+    res.status(201).json(createdRecipe);
+  } catch (e) {
+    return next(e);
+  }
 };
 
-module.exports.getRecipe = (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
+export const getById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const recipe = await RecipeService.getById(req.params.id);
 
-  const criterial = {
-    _id: id || '',
-  };
-  
-  Recipe
-    .find(criterial)
-    .then((recipe: IRecipe) => {
-      if (recipe) {
-        res.status(200).json(recipe);
-      } else {
-        next(createError(404, 'The recipe doesn\'t exists'));
-      }
-    })
-    .catch((error: Error) => {
-      console.error(`🔥 Error in getRecipe ${error}`);
-      next(error);
-    });
+    res.status(200).json(recipe);
+  } catch (e) {
+    return next(e);
+  }
+};
+
+export const getRecipes = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const recipes = await RecipeService.getRecipes(req.query);
+
+    res.status(200).json(recipes);
+  } catch (e) {
+    return next(e);
+  }
+};
+
+export const update = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const updatedRecipe = await RecipeService.update(req.params.id, req.body);
+
+    res.status(200).json(updatedRecipe);
+  } catch (e) {
+    return next(e);
+  }
+};
+
+export const remove = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await RecipeService.remove(req.params.id);
+
+    res.status(200).json(result);
+  } catch(e) {
+    return next(e);
+  }
 };
