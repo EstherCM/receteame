@@ -22,7 +22,9 @@ export const getBy = async (query: { [x: string]: string }) => {
 
 export const update = async (id: string, propsToUpdate: IRecipe) => {
   try {
-    return await Recipe.findByIdAndUpdate({ _id: id }, propsToUpdate, { new: true });
+    return await Recipe.findByIdAndUpdate({ _id: id }, propsToUpdate, {
+      new: true,
+    });
   } catch (e) {
     console.error(`🔥 [DAO] Error updating recipe ${e}`);
     return e;

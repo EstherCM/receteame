@@ -9,13 +9,13 @@ describe('[recipeCtrl] unit test', () => {
     it('should create a recipe', async () => {
       const mockedReq = {
         user: {
-          id: 'mockedId'
+          id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
-      }  as Partial<Response>;
+      } as Partial<Response>;
       const mockedNext = jest.fn();
 
       recipeService.create.mockResolvedValue({
@@ -51,7 +51,7 @@ describe('[recipeCtrl] unit test', () => {
     it('should failed when something is wrong', async () => {
       const mockedReq = {
         user: {
-          id: 'mockedId'
+          id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -75,7 +75,7 @@ describe('[recipeCtrl] unit test', () => {
     it('should get a recipe by id', async () => {
       const mockedReq = {
         params: {
-          _id: 'mockedId'
+          _id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -84,40 +84,44 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.getById.mockResolvedValue([{
-        _id: 'mockedId',
-        name: 'mockedName',
-        image: 'mockedUrl',
-        ingredients: ['Ingredient1', 'Ingredient2'],
-        preparation: ['Preparation1', 'Preparation2'],
-        people: 4,
-        time: 240,
-        notes: 'mockedNotes',
-        tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
-      }]);
+      recipeService.getById.mockResolvedValue([
+        {
+          _id: 'mockedId',
+          name: 'mockedName',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ]);
 
       await getById(mockedReq as Request, mockedRes as Response, mockedNext);
 
       expect(mockedRes.status).toHaveBeenCalledWith(200);
-      expect(mockedRes.json).toHaveBeenCalledWith([{
-        _id: 'mockedId',
-        name: 'mockedName',
-        image: 'mockedUrl',
-        ingredients: ['Ingredient1', 'Ingredient2'],
-        preparation: ['Preparation1', 'Preparation2'],
-        people: 4,
-        time: 240,
-        notes: 'mockedNotes',
-        tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
-      }]);
+      expect(mockedRes.json).toHaveBeenCalledWith([
+        {
+          _id: 'mockedId',
+          name: 'mockedName',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ]);
     });
 
     it('should failed when something is wrong', async () => {
       const mockedReq = {
         params: {
-          _id: 'mockedId'
+          _id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -141,7 +145,7 @@ describe('[recipeCtrl] unit test', () => {
     it('should get recipes', async () => {
       const mockedReq = {
         query: {
-          _id: 'mockedId'
+          _id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -150,40 +154,44 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.getRecipes.mockResolvedValue([{
-        _id: 'mockedId',
-        name: 'mockedName',
-        image: 'mockedUrl',
-        ingredients: ['Ingredient1', 'Ingredient2'],
-        preparation: ['Preparation1', 'Preparation2'],
-        people: 4,
-        time: 240,
-        notes: 'mockedNotes',
-        tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
-      }]);
+      recipeService.getRecipes.mockResolvedValue([
+        {
+          _id: 'mockedId',
+          name: 'mockedName',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ]);
 
       await getRecipes(mockedReq as Request, mockedRes as Response, mockedNext);
 
       expect(mockedRes.status).toHaveBeenCalledWith(200);
-      expect(mockedRes.json).toHaveBeenCalledWith([{
-        _id: 'mockedId',
-        name: 'mockedName',
-        image: 'mockedUrl',
-        ingredients: ['Ingredient1', 'Ingredient2'],
-        preparation: ['Preparation1', 'Preparation2'],
-        people: 4,
-        time: 240,
-        notes: 'mockedNotes',
-        tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
-      }]);
+      expect(mockedRes.json).toHaveBeenCalledWith([
+        {
+          _id: 'mockedId',
+          name: 'mockedName',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ]);
     });
 
     it('should failed when something is wrong', async () => {
       const mockedReq = {
         query: {
-          _id: 'mockedId'
+          _id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -207,10 +215,10 @@ describe('[recipeCtrl] unit test', () => {
     it('should update data of one recipe', async () => {
       const mockedReq = {
         params: {
-          id: 'mockedId'
+          id: 'mockedId',
         },
         body: {
-          name: 'mockedName2'
+          name: 'mockedName2',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -219,43 +227,47 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.update.mockResolvedValue([{
-        _id: 'mockedId',
-        name: 'mockedName2',
-        image: 'mockedUrl',
-        ingredients: ['Ingredient1', 'Ingredient2'],
-        preparation: ['Preparation1', 'Preparation2'],
-        people: 4,
-        time: 240,
-        notes: 'mockedNotes',
-        tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
-      }]);
+      recipeService.update.mockResolvedValue([
+        {
+          _id: 'mockedId',
+          name: 'mockedName2',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ]);
 
       await update(mockedReq as Request, mockedRes as Response, mockedNext);
 
       expect(mockedRes.status).toHaveBeenCalledWith(200);
-      expect(mockedRes.json).toHaveBeenCalledWith([{
-        _id: 'mockedId',
-        name: 'mockedName2',
-        image: 'mockedUrl',
-        ingredients: ['Ingredient1', 'Ingredient2'],
-        preparation: ['Preparation1', 'Preparation2'],
-        people: 4,
-        time: 240,
-        notes: 'mockedNotes',
-        tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
-      }]);
+      expect(mockedRes.json).toHaveBeenCalledWith([
+        {
+          _id: 'mockedId',
+          name: 'mockedName2',
+          image: 'mockedUrl',
+          ingredients: ['Ingredient1', 'Ingredient2'],
+          preparation: ['Preparation1', 'Preparation2'],
+          people: 4,
+          time: 240,
+          notes: 'mockedNotes',
+          tags: ['Tag1', 'Tag2'],
+          type: ['Type1', 'Type2'],
+        },
+      ]);
     });
 
     it('should failed when something is wrong', async () => {
       const mockedReq = {
         params: {
-          id: 'mockedId'
+          id: 'mockedId',
         },
         body: {
-          name: 'mockedName2'
+          name: 'mockedName2',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -279,7 +291,7 @@ describe('[recipeCtrl] unit test', () => {
     it('should delete a recipe', async () => {
       const mockedReq = {
         params: {
-          id: 'mockedId'
+          id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {
@@ -299,7 +311,7 @@ describe('[recipeCtrl] unit test', () => {
     it('should failed when something is wrong', async () => {
       const mockedReq = {
         params: {
-          id: 'mockedId'
+          id: 'mockedId',
         },
       } as Partial<Request>;
       const mockedRes = {

@@ -11,7 +11,7 @@ export interface IRecipe {
   notes: string;
   tags: string[];
   type: string[];
-};
+}
 
 const recipeSchema = new Schema(
   {
@@ -52,7 +52,7 @@ const recipeSchema = new Schema(
         return ret;
       },
     },
-  }
+  },
 );
 
 export const Recipe = mongoose.model('recipe', recipeSchema);

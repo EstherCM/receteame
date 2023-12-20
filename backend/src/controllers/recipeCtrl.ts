@@ -46,7 +46,7 @@ export const remove = async (req: Request, res: Response, next: NextFunction) =>
     const result = await RecipeService.remove(req.params.id);
 
     res.status(200).json(result);
-  } catch(e) {
+  } catch (e) {
     return next(e);
   }
 };

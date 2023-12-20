@@ -39,7 +39,7 @@ describe('[recipeDAO] unit test', () => {
       expect(result.type).toEqual(mockedNewRecipe.type);
     });
 
-    it('should return error when recipe couldn\'t be created', async () => {
+    it("should return error when recipe couldn't be created", async () => {
       const mockedNewRecipe = {
         name: 'mockedName',
         image: 'mockedUrl',
@@ -139,7 +139,7 @@ describe('[recipeDAO] unit test', () => {
       expect(getMock).toHaveBeenCalledWith({ name: 'recipe2' });
     });
 
-    it('should return error when recipe couldn\'t be returned', async () => {
+    it("should return error when recipe couldn't be returned", async () => {
       const mockedError = new Error('Error getting recipe');
       getMock.mockRejectedValue(mockedError);
 
@@ -180,7 +180,7 @@ describe('[recipeDAO] unit test', () => {
       });
     });
 
-    it('should return error when recipe couldn\'t be returned', async () => {
+    it("should return error when recipe couldn't be returned", async () => {
       const updatedRecipeData = {
         _id: '1',
         name: 'Recipe 1 updated',
@@ -223,7 +223,7 @@ describe('[recipeDAO] unit test', () => {
       expect(deleteMock).toHaveBeenCalledWith({ _id: id });
     });
 
-    it('should return error when recipe couldn\'t be removed', async () => {
+    it("should return error when recipe couldn't be removed", async () => {
       const id = 'mockedId';
       const mockError = new Error('Error deleting recipe');
       deleteMock.mockRejectedValue(mockError);

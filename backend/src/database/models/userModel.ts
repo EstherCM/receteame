@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-export  interface IUser {
+export interface IUser {
   name: string;
   email: string;
   password: string;
-};
+}
 
 const userSchema = new Schema(
   {
@@ -33,7 +33,7 @@ const userSchema = new Schema(
         return ret;
       },
     },
-  }
+  },
 );
 
 export const User = mongoose.model('user', userSchema);

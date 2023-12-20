@@ -18,7 +18,7 @@ app.use((error: any, req: any, res: any, next: any) => {
 
   const data = {
     errors: undefined,
-    message: undefined
+    message: undefined,
   };
 
   if (error instanceof mongoose.Error.ValidationError || error.status === 400) {
@@ -31,7 +31,7 @@ app.use((error: any, req: any, res: any, next: any) => {
   data.message = error.message;
 
   res.status(error.status).json(data);
-})
+});
 
 app.listen(port, () => {
   console.info(`App running in port: ${port}`);

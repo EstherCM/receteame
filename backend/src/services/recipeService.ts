@@ -80,7 +80,7 @@ const remove = async (id: string) => {
     const { deletedCount } = await RecipeDAO.remove(id);
 
     if (deletedCount !== 1) {
-      return { error: 'Something was wrong. Recipe couldn\'t be removed' };
+      return { error: "Something was wrong. Recipe couldn't be removed" };
     }
     return { success: true };
   } catch (e) {

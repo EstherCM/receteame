@@ -156,7 +156,7 @@ describe('[recipeService] unit test', () => {
       expect(result).toEqual({ success: true });
     });
 
-    it('should return error if recipe can\'t be deleted', async () => {
+    it("should return error if recipe can't be deleted", async () => {
       const id = 'mockedId';
 
       recipeDAO.remove.mockResolvedValue({ deletedCount: 0 });
