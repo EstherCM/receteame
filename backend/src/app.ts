@@ -1,22 +1,33 @@
 require('dotenv/config');
 require('./config/db.config');
-const router = require('./config/routes.config');
+
 const express = require('express');
-const logger = require('morgan');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
+const recipeRouter = require('./routes/recipeRoutes');
+import { Request, Response, NextFunction } from 'express';
+
+interface CustomError extends Error {
+  status: number;
+  errors?: string;
+};
+
+interface Data {
+  errors?: string;
+  message?: string;
+};
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(logger('dev'));
+app.use(express.json());
 
-app.use('/api/v1', router);
+app.use('/api/v1', recipeRouter);
 
-app.use((error: any, req: any, res: any, next: any) => {
+app.use((error: CustomError, req: Request, res: Response, next: NextFunction) => {
   res.status(error.status || 500);
 
-  const data = {
+  const data: Data = {
     errors: undefined,
     message: undefined,
   };
@@ -34,7 +45,7 @@ app.use((error: any, req: any, res: any, next: any) => {
 });
 
 app.listen(port, () => {
-  console.info(`App running in port: ${port}`);
+  console.info(`🏃 App running in port: ${port}`);
 });
 
 export {};

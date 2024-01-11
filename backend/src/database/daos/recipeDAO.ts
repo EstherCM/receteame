@@ -1,6 +1,5 @@
 import { IRecipe } from '../models/recipeModel';
-
-const Recipe = require('../models/recipeModel');
+import { Recipe } from '../models/recipeModel';
 
 export const create = async (body: IRecipe) => {
   try {

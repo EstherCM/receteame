@@ -18,7 +18,7 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.create.mockResolvedValue({
+      recipeService.createRecipe.mockResolvedValue({
         _id: 'mockedId',
         name: 'mockedName',
         image: 'mockedUrl',
@@ -60,7 +60,7 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.create.mockRejectedValue({ error: 'Error creating recipe' });
+      recipeService.createRecipe.mockRejectedValue({ error: 'Error creating recipe' });
 
       await create(mockedReq as Request, mockedRes as Response, mockedNext);
 
@@ -227,7 +227,7 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.update.mockResolvedValue([
+      recipeService.updateRecipe.mockResolvedValue([
         {
           _id: 'mockedId',
           name: 'mockedName2',
@@ -276,7 +276,7 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.update.mockRejectedValue({ error: 'Error updating recipes' });
+      recipeService.updateRecipe.mockRejectedValue({ error: 'Error updating recipes' });
 
       await update(mockedReq as Request, mockedRes as Response, mockedNext);
 
@@ -300,7 +300,7 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.remove.mockResolvedValue({ success: true });
+      recipeService.removeRecipe.mockResolvedValue({ success: true });
 
       await remove(mockedReq as Request, mockedRes as Response, mockedNext);
 
@@ -320,7 +320,7 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.remove.mockRejectedValue({ error: 'Error deleting recipes' });
+      recipeService.removeRecipe.mockRejectedValue({ error: 'Error deleting recipes' });
 
       await remove(mockedReq as Request, mockedRes as Response, mockedNext);
 

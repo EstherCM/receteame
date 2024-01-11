@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export interface IRecipe {
@@ -40,6 +40,11 @@ const recipeSchema = new Schema(
     },
     tags: [String],
     type: [String],
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
   {
     timestamp: true,
@@ -52,7 +57,7 @@ const recipeSchema = new Schema(
         return ret;
       },
     },
-  },
+  }
 );
 
 export const Recipe = mongoose.model('recipe', recipeSchema);
