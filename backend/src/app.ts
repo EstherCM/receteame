@@ -20,6 +20,14 @@ interface Data {
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.set('Access-Control-Allow-Headers', 'content-type');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.set('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 app.use(express.json());
 
 app.use('/api/v1', recipeRouter);

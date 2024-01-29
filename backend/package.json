@@ -8,7 +8,6 @@
     "dev": "nodemon src/app.ts",
     "start": "ts-node src/app.ts",
     "test": "jest --config jest.config.ts",
-    "seed": "node src/seeds/seed.ts",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],

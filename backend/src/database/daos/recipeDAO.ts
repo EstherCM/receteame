@@ -14,7 +14,7 @@ export const getBy = async (query: { [x: string]: string }) => {
   try {
     return await Recipe.find(query);
   } catch (e) {
-    console.error(`🔥 [DAO] Error getting recipe by ${query} ${e}`);
+    console.error(`🔥 [DAO] Error getting recipe ${query._id}, ${e}`);
     return e;
   }
 };
