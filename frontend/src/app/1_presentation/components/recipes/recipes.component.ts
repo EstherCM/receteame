@@ -6,17 +6,23 @@ import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
   selector: 'app-recipes',
   standalone: true,
   templateUrl: './recipes.component.html',
+  styleUrls: [
+    '../../../../styles/recipes-view.scss',
+    '../../../../styles/recipe-list.scss',
+    '../../../../styles/recipe-item.scss',
+  ],
 })
 export class RecipesComponent implements OnInit {
-  recipes!: IRecipe;
+  recipes: IRecipe[] = [];
 
   constructor(private recipeRepository: RecipeRepository) {}
 
   ngOnInit(): void {
-    const id = '63d66c04238937215a89f9f6';
-
-    this.recipeRepository.getById(id).subscribe({
-      next: (recipes: IRecipe) => this.recipes = recipes,
+    this.recipeRepository.get({}).subscribe({
+      next: (recipes: IRecipe[]) => {
+        console.log('recipes', recipes);
+        return (this.recipes = recipes);
+      },
       error: (error) => console.error('🔥 Error getting recipes:', error),
     });
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RecipesComponent } from './1_presentation/components/recipes/recipes.component';
+import "@fontsource/satisfy";
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,5 @@ import { RecipesComponent } from './1_presentation/components/recipes/recipes.co
   styleUrls: ['../styles/header.scss']
 })
 export class AppComponent {
-  title = 'receteame';
+  title = 'Receteame';
 }

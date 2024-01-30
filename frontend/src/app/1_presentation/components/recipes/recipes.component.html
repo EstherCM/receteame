@@ -1,1 +1,25 @@
-<p>recipes works!</p>
+<main class="recipes-view">
+  <aside class="recipes-view__filters">
+    <p>filtros por aquí</p>
+  </aside>
+  <section class="recipes-view__items">
+    @if (recipes) {
+    <div class="recipe-list">
+      @for (recipe of recipes; track $index) {
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      }
+    </div>
+    }
+  </section>
+</main>
