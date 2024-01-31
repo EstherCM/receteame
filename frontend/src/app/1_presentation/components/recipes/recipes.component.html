@@ -1,11 +1,56 @@
 <main class="recipes-view">
-  <aside class="recipes-view__filters">
-    <p>filtros por aquí</p>
+  <aside class="recipes-filters">
+    <form [formGroup]="searchRecipeForm" (ngSubmit)="onSubmit()">
+      <div class="recipes-filters__item">
+        <label for="name" class="recipes-filters__title">Nombre</label>
+        <input id="name" type="text" formControlName="name" class="recipes-filters__value">
+      </div>
+      <div class="recipes-filters__item">
+        <label for="ingredients" class="recipes-filters__title">Ingredientes</label>
+        <input id="ingredients" type="text" formControlName="ingredients" class="recipes-filters__value">
+      </div>
+      <div class="checkbox-wrapper">
+        <p>Personas</p>
+        @for (people of getPeopleAmount; track $index) {
+        <label class="checkbox">
+          <input class="checkbox__trigger hidden" type="checkbox" />
+          <span class="checkbox__symbol">
+            <svg aria-hidden="true" class="checkbox__icon" width="28px" height="28px" viewBox="0 0 28 28" version="1"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 14l8 7L24 7"></path>
+            </svg>
+          </span>
+          <p class="checkbox__text">{{ people }}</p>
+        </label>
+        }
+      </div>
+      <div class="recipes-filters__item">
+        <label for="time" class="recipes-filters__title">Tiempo</label>
+        <input id="time" type="text" formControlName="time" class="recipes-filters__value">
+      </div>
+      <div class="recipes-filters__item">
+        <label for="type" class="recipes-filters__title">Tipo</label>
+        <input id="type" type="text" formControlName="type" class="recipes-filters__value">
+      </div>
+    </form>
+    <button type="submit" [disabled]="!searchRecipeForm.valid" class="button">Buscar</button>
   </aside>
   <section class="recipes-view__items">
     @if (recipes) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
       <div class="recipe-item">
         <img [src]="recipe.image" class="recipe-item__img">
         <p class="recipe-item__name">{{ recipe.name }}</p>
