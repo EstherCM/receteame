@@ -10,17 +10,18 @@
         <input id="ingredients" type="text" formControlName="ingredients" class="recipes-filters__value">
       </div>
       <div class="checkbox-wrapper">
-        <p>Personas</p>
-        @for (people of getPeopleAmount; track $index) {
+        <p class="recipes-filters__title">Personas</p>
+        @for (person of people; track $index) {
         <label class="checkbox">
-          <input class="checkbox__trigger hidden" type="checkbox" />
+          <input type="checkbox" class="checkbox__trigger hidden" (change)="onChange($event)" [value]="person"
+            name="people" />
           <span class="checkbox__symbol">
             <svg aria-hidden="true" class="checkbox__icon" width="28px" height="28px" viewBox="0 0 28 28" version="1"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M4 14l8 7L24 7"></path>
             </svg>
           </span>
-          <p class="checkbox__text">{{ people }}</p>
+          <p class="checkbox__text">{{ person }}</p>
         </label>
         }
       </div>
@@ -30,10 +31,14 @@
       </div>
       <div class="recipes-filters__item">
         <label for="type" class="recipes-filters__title">Tipo</label>
-        <input id="type" type="text" formControlName="type" class="recipes-filters__value">
+        <select id="type" formControlName="type" class="recipes-filters__value">
+          @for (type of types; track $index) {
+          <option [ngValue]="type">{{type}}</option>
+          }
+        </select>
       </div>
+      <button type="submit" [disabled]="!searchRecipeForm.valid" class="button">Buscar</button>
     </form>
-    <button type="submit" [disabled]="!searchRecipeForm.valid" class="button">Buscar</button>
   </aside>
   <section class="recipes-view__items">
     @if (recipes) {

@@ -1,5 +1,8 @@
 .recipes-filters {
-  background-color: #FF9043;
+  background: #FCEED6;
+  background-image: radial-gradient(#FFD375 1px, transparent 0);
+  background-size: 48px 48px;
+  background-position: 24px 24px;
   height: 100%;
   width: 48%;
   padding: 0px 8px;
@@ -10,20 +13,18 @@
   &__item {
     display: flex;
     flex-direction: column;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
 
   &__title {
-    &--checkbox {
-      display: flex;
-      align-items: center;
-    }
+    margin: 4px 0px;
   }
 
   &__value {
-    background-color: #DE7D3A;
+    background-color: #FFD375;
     height: 24px;
     border-radius: 4px;
-    border: 2px solid #DE7D3A;
+    border: 2px solid #ffc341;
+    font-family: 'Be Vietnam Pro', sans-serif;
   }
 }
