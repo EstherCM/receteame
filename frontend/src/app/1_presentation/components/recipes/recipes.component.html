@@ -13,7 +13,7 @@
         <p class="recipes-filters__title">Personas</p>
         @for (person of people; track $index) {
         <label class="checkbox">
-          <input type="checkbox" class="checkbox__trigger hidden" (change)="onChange($event)" [value]="person"
+          <input type="checkbox" class="checkbox__trigger hidden" (change)="onChangePeople($event)" [value]="person"
             name="people" />
           <span class="checkbox__symbol">
             <svg aria-hidden="true" class="checkbox__icon" width="28px" height="28px" viewBox="0 0 28 28" version="1"
@@ -31,11 +31,12 @@
       </div>
       <div class="recipes-filters__item">
         <label for="type" class="recipes-filters__title">Tipo</label>
-        <select id="type" formControlName="type" class="recipes-filters__value">
+        <select id="type" formControlName="type" class="recipes-filters__value" (change)="onChangeType($event)">
           @for (type of types; track $index) {
-          <option [ngValue]="type">{{type}}</option>
+          <option [value]="type">{{type}}</option>
           }
         </select>
+        
       </div>
       <button type="submit" [disabled]="!searchRecipeForm.valid" class="button">Buscar</button>
     </form>

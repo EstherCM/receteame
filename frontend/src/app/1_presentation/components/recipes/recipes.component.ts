@@ -28,63 +28,72 @@ export class RecipesComponent implements OnInit {
 
   searchRecipeForm = new FormGroup({
     name: new FormControl(''),
-    ingredients: new FormControl(''),
+    ingredients: new FormArray([]),
     people: new FormArray([]),
     time: new FormControl(''),
-    type: new FormControl([
-      TypeRecipe.starter,
-      TypeRecipe.first,
-      TypeRecipe.second,
-      TypeRecipe.dessert,
-      TypeRecipe.snack,
-      TypeRecipe.dessert,
-    ]),
+    type: new FormControl(),
   });
 
-  types: [TypeRecipe] = [TypeRecipe.starter];
+  types = [
+    TypeRecipe.starter,
+    TypeRecipe.first,
+    TypeRecipe.second,
+    TypeRecipe.dessert,
+    TypeRecipe.snack,
+    TypeRecipe.dessert
+  ];
   people = [1, 2, 4, 8];
 
   constructor(private recipeRepository: RecipeRepository) {}
 
   ngOnInit(): void {
     this.recipeRepository.get({}).subscribe({
-      next: (recipes: IRecipe[]) => {
-        return (this.recipes = recipes);
-      },
+      next: (recipes: IRecipe[]) => this.recipes = recipes,
       error: (error) => console.error('🔥 Error getting recipes:', error),
     });
-    this.types = this.getTypes;
   }
 
-  get getPeople(): FormArray {
-    return this.searchRecipeForm.get('people') as FormArray;
-  }
-
-  get getTypes() {
-    return (this.searchRecipeForm.get('type') as FormArray).value;
-  }
-
-  onChange($event: Event) {
+  onChangePeople($event: Event) {
     const checkedValue = ($event.target as HTMLInputElement).value;
     const isChecked = ($event.target as HTMLInputElement).checked;
-
-    const checkedArray = this.searchRecipeForm.get('people') as FormArray;
+    const checkedPeople = this.searchRecipeForm.get('people') as FormArray;
 
     if (isChecked) {
-      checkedArray.push(new FormControl(checkedValue));
+      checkedPeople.push(new FormControl(checkedValue));
     } else {
       let i = 0;
 
-      checkedArray.controls.forEach((control) => {
+      checkedPeople.controls.forEach((control) => {
         if (control.value === checkedValue) {
-          checkedArray.removeAt(i);
+          checkedPeople.removeAt(i);
         }
         i++;
       });
     }
   }
 
+  onChangeType($event: Event) {
+    const selectedValue = ($event.target as HTMLSelectElement).value;
+    const selectedType = this.searchRecipeForm.get('type') as FormControl;
+
+    selectedType.setValue(selectedValue);
+  }
+
   onSubmit() {
     console.log('form', this.searchRecipeForm.value);
+    const formValue = this.searchRecipeForm.value;
+
+    const filters = {
+      name: formValue.name || '',
+      ingredients: formValue.ingredients || [],
+      people: formValue.people || [],
+      time: formValue.time || '',
+      type: formValue.type || undefined,
+    };
+
+    this.recipeRepository.get(filters).subscribe({
+      next: (recipes: IRecipe[]) => this.recipes = recipes,
+      error: (error) => console.error('🔥 Error getting recipes:', error),
+    });
   }
 }

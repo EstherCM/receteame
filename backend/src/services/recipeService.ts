@@ -41,13 +41,14 @@ const getById = async (id: string) => {
 const getRecipes = async (query: { [x: string]: string }) => {
   let criterial: { [x: string]: string } = {};
 
-  const propsToFind = ['name'];
+  const propsToFind = ['name', 'ingredients', 'people', 'time', 'type'];
 
   propsToFind.forEach((prop) => {
     if (_.has(query, prop)) {
       criterial[prop] = query[prop];
     }
   });
+
   try {
     return await RecipeDAO.getBy(criterial);
   } catch (e) {
