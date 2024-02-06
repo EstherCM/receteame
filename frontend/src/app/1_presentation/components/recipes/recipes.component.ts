@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   FormArray,
 } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
 import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
 import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
@@ -21,7 +22,7 @@ import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
     '../../../../styles/checkbox.scss',
     '../../../../styles/button.scss',
   ],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatSliderModule],
 })
 export class RecipesComponent implements OnInit {
   recipes: IRecipe[] = [];
@@ -30,7 +31,10 @@ export class RecipesComponent implements OnInit {
     name: new FormControl(''),
     ingredients: new FormArray([]),
     people: new FormArray([]),
-    time: new FormControl(''),
+    time: new FormGroup({
+      start: new FormControl(1),
+      end: new FormControl(240),
+    }),
     type: new FormControl(),
   });
 
@@ -40,15 +44,17 @@ export class RecipesComponent implements OnInit {
     TypeRecipe.second,
     TypeRecipe.dessert,
     TypeRecipe.snack,
-    TypeRecipe.dessert
+    TypeRecipe.dessert,
   ];
   people = [1, 2, 4, 8];
+  min = 1;
+  max = 240;
 
   constructor(private recipeRepository: RecipeRepository) {}
 
   ngOnInit(): void {
     this.recipeRepository.get({}).subscribe({
-      next: (recipes: IRecipe[]) => this.recipes = recipes,
+      next: (recipes: IRecipe[]) => (this.recipes = recipes),
       error: (error) => console.error('🔥 Error getting recipes:', error),
     });
   }
@@ -72,6 +78,34 @@ export class RecipesComponent implements OnInit {
     }
   }
 
+  onSliderMinInput($event: Event) {
+    const sliderValue = ($event.target as HTMLInputElement).value;
+    const timeControl = this.searchRecipeForm.get('time');
+
+    if (timeControl) {
+      const { end } = timeControl.value;
+
+      timeControl.patchValue({
+        start: Number(sliderValue),
+        end,
+      });
+    }
+  }
+
+  onSliderMaxInput($event: Event) {
+    const sliderValue = ($event.target as HTMLInputElement).value;
+    const timeControl = this.searchRecipeForm.get('time');
+
+    if (timeControl) {
+      const { start } = timeControl.value;
+
+      timeControl.patchValue({
+        start,
+        end: Number(sliderValue),
+      });
+    }
+  }
+
   onChangeType($event: Event) {
     const selectedValue = ($event.target as HTMLSelectElement).value;
     const selectedType = this.searchRecipeForm.get('type') as FormControl;
@@ -80,19 +114,21 @@ export class RecipesComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('form', this.searchRecipeForm.value);
     const formValue = this.searchRecipeForm.value;
 
     const filters = {
       name: formValue.name || '',
       ingredients: formValue.ingredients || [],
       people: formValue.people || [],
-      time: formValue.time || '',
+      time: {
+        start: formValue.time?.start || 1,
+        end: formValue.time?.end || 240,
+      },
       type: formValue.type || undefined,
     };
 
     this.recipeRepository.get(filters).subscribe({
-      next: (recipes: IRecipe[]) => this.recipes = recipes,
+      next: (recipes: IRecipe[]) => (this.recipes = recipes),
       error: (error) => console.error('🔥 Error getting recipes:', error),
     });
   }

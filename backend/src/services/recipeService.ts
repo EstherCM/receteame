@@ -39,13 +39,18 @@ const getById = async (id: string) => {
 };
 
 const getRecipes = async (query: { [x: string]: string }) => {
-  let criterial: { [x: string]: string } = {};
+  let criterial: any = {};
 
   const propsToFind = ['name', 'ingredients', 'people', 'time', 'type'];
 
   propsToFind.forEach((prop) => {
     if (_.has(query, prop)) {
       criterial[prop] = query[prop];
+
+      if (prop === 'time') {
+        const [start, end] = query['time'].split('-');
+        criterial[prop] = { $gte: Number(start), $lte: Number(end) };
+      }
     }
   });
 
@@ -58,7 +63,7 @@ const getRecipes = async (query: { [x: string]: string }) => {
 
 const update = async (
   id: string,
-  { name, ingredients, preparation, people, time, notes, tags, type }: IRecipe
+  { name, ingredients, preparation, people, time, notes, tags, type }: IRecipe,
 ) => {
   try {
     return await RecipeDAO.update(id, {

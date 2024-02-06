@@ -29,7 +29,10 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "scripts": []
+            "scripts": [],
+            "styles": [
+              "src/custom-theme.scss"
+            ]
           },
           "configurations": {
             "production": {

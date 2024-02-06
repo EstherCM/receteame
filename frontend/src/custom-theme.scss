@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$receteame-primary: mat.define-palette(mat.$indigo-palette);
+$receteame-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$receteame-warn: mat.define-palette(mat.$red-palette);
+
+$receteame-theme: mat.define-light-theme((
+  color: (
+    primary: $receteame-primary,
+    accent: $receteame-accent,
+    warn: $receteame-warn,
+  )
+));
+
+@include mat.all-component-themes($receteame-theme);

@@ -9,25 +9,36 @@ import { TypeRecipe } from '../models/type-recipe.enum';
 @Injectable({
   providedIn: 'root',
 })
-
 export class RecipeRepository {
   constructor(private readonly recipeAdapter: RecipeAdapter) {}
 
-  get(filters: Partial<{ name: string; ingredients: string[]; people: number[]; time: string; type: TypeRecipe; }>): Observable<IRecipe[]> {
+  get(
+    filters: Partial<{
+      name: string;
+      ingredients: string[];
+      people: number[];
+      time: {
+        start: number;
+        end: number;
+      };
+      type: TypeRecipe;
+    }>
+  ): Observable<IRecipe[]> {
     let queryParams = new HttpParams();
 
     if (filters.name !== undefined && filters.name !== '') {
       queryParams = queryParams.set('name', filters.name);
     }
 
-    if (filters.ingredients && filters.ingredients.length > 0) {
+    if (filters.ingredients?.length) {
       const ingredientStringArray = filters.ingredients.map(String);
 
       ingredientStringArray.forEach((ingredient) => {
         queryParams = queryParams.append('ingredients', ingredient);
       });
     }
-    if (filters.people && filters.people.length > 0) {
+
+    if (filters.people?.length) {
       const peopleStringArray = filters.people.map(String);
 
       peopleStringArray.forEach((person) => {
@@ -36,7 +47,7 @@ export class RecipeRepository {
     }
 
     if (filters.time) {
-      queryParams = queryParams.set('time', filters.time);
+      queryParams = queryParams.set('time', `${filters.time.start}-${filters.time.end}`);
     }
 
     if (filters.type) {
@@ -45,7 +56,7 @@ export class RecipeRepository {
 
     return this.recipeAdapter.get(queryParams);
   }
-  
+
   getById(id: string): Observable<IRecipe> {
     return this.recipeAdapter.getById(id);
   }

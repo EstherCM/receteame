@@ -27,7 +27,10 @@
       </div>
       <div class="recipes-filters__item">
         <label for="time" class="recipes-filters__title">Tiempo</label>
-        <input id="time" type="text" formControlName="time" class="recipes-filters__value">
+        <mat-slider min="1" max="240" formGroupName="time">
+          <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)">
+          <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)">
+        </mat-slider>
       </div>
       <div class="recipes-filters__item">
         <label for="type" class="recipes-filters__title">Tipo</label>
