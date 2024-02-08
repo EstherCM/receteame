@@ -1,5 +1,7 @@
 .recipe-item {
   max-width: calc((100% - 60px) / 3);
+  height: calc((100% - 72px) / 4);
+  width: 100%;
   position: relative;
   overflow: hidden;
   border-radius: 8px;

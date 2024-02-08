@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  FormArray,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatChipsModule, MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
 import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
 import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
@@ -22,14 +18,14 @@ import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
     '../../../../styles/checkbox.scss',
     '../../../../styles/button.scss',
   ],
-  imports: [ReactiveFormsModule, MatSliderModule],
+  imports: [ReactiveFormsModule, MatSliderModule, MatChipsModule],
 })
 export class RecipesComponent implements OnInit {
   recipes: IRecipe[] = [];
 
   searchRecipeForm = new FormGroup({
     name: new FormControl(''),
-    ingredients: new FormArray([]),
+    ingredients: new FormControl([]),
     people: new FormArray([]),
     time: new FormGroup({
       start: new FormControl(1),
@@ -38,6 +34,11 @@ export class RecipesComponent implements OnInit {
     type: new FormControl(),
   });
 
+  ingredients = [];
+  people = [1, 2, 4, 8];
+  min = 0;
+  max = 240;
+  stepValue = 5;
   types = [
     TypeRecipe.starter,
     TypeRecipe.first,
@@ -46,9 +47,6 @@ export class RecipesComponent implements OnInit {
     TypeRecipe.snack,
     TypeRecipe.dessert,
   ];
-  people = [1, 2, 4, 8];
-  min = 1;
-  max = 240;
 
   constructor(private recipeRepository: RecipeRepository) {}
 
@@ -58,6 +56,42 @@ export class RecipesComponent implements OnInit {
       error: (error) => console.error('🔥 Error getting recipes:', error),
     });
   }
+
+  // add(event: MatChipInputEvent): void {
+  //   const value = (event.value || '').trim();
+
+  //   // Add our fruit
+  //   if (value) {
+  //     this.ingredients.push({name: value});
+  //   }
+
+  //   // Clear the input value
+  //   event.chipInput!.clear();
+  // }
+
+  // remove(fruit: string): void {
+  //   const index = this.ingredients.indexOf(fruit);
+
+  //   if (index >= 0) {
+  //     this.ingredients.splice(index, 1);
+  //   }
+  // }
+
+  // edit(fruit: string, event: MatChipEditedEvent) {
+  //   const value = event.value.trim();
+
+  //   // Remove fruit if it no longer has a name
+  //   if (!value) {
+  //     this.remove(fruit);
+  //     return;
+  //   }
+
+  //   // Edit existing fruit
+  //   const index = this.ingredients.indexOf(fruit);
+  //   if (index >= 0) {
+  //     this.ingredients[index].name = value;
+  //   }
+  // }
 
   onChangePeople($event: Event) {
     const checkedValue = ($event.target as HTMLInputElement).value;
@@ -104,6 +138,10 @@ export class RecipesComponent implements OnInit {
         end: Number(sliderValue),
       });
     }
+  }
+
+  formatLabel(value: number): string {
+    return String(value);
   }
 
   onChangeType($event: Event) {

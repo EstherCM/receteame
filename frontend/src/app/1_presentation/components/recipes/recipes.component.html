@@ -8,6 +8,26 @@
       <div class="recipes-filters__item">
         <label for="ingredients" class="recipes-filters__title">Ingredientes</label>
         <input id="ingredients" type="text" formControlName="ingredients" class="recipes-filters__value">
+        <!-- <mat-form-field class="example-chip-list" appearance="fill">
+          <mat-label>Favorite Fruits</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Enter fruits">
+            <mat-chip-row *ngFor="let fruit of fruits"
+                          (removed)="remove(fruit)"
+                          [editable]="true"
+                          (edited)="edit(fruit, $event)"
+                          [aria-description]="'press enter to edit ' + fruit.name">
+              {{fruit.name}}
+              <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input placeholder="New fruit..."
+                   [matChipInputFor]="chipGrid"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)"/>
+          </mat-chip-grid>
+        </mat-form-field> -->
       </div>
       <div class="checkbox-wrapper">
         <p class="recipes-filters__title">Personas</p>
@@ -27,7 +47,7 @@
       </div>
       <div class="recipes-filters__item">
         <label for="time" class="recipes-filters__title">Tiempo</label>
-        <mat-slider min="1" max="240" formGroupName="time">
+        <mat-slider discrete [min]="min" [max]="max" formGroupName="time" [step]="stepValue" thumbLabel [displayWith]="formatLabel">
           <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)">
           <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)">
         </mat-slider>
@@ -48,18 +68,6 @@
     @if (recipes) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
       <div class="recipe-item">
         <img [src]="recipe.image" class="recipe-item__img">
         <p class="recipe-item__name">{{ recipe.name }}</p>
