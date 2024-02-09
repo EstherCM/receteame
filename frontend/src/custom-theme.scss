@@ -1,3 +1,4 @@
+// Estilos personalizados de los elementos de angular material
 @use '@angular/material' as mat;
 @include mat.core();
 
@@ -14,5 +15,9 @@ $receteame-theme: mat.define-light-theme((
   )
 ));
 
-
 @include mat.all-component-themes($receteame-theme);
+
+
+.mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled.mdc-text-field--no-label {
+  background-color: #FFD375;
+}

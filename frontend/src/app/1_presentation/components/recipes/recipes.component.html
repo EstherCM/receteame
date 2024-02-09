@@ -7,27 +7,24 @@
       </div>
       <div class="recipes-filters__item">
         <label for="ingredients" class="recipes-filters__title">Ingredientes</label>
-        <input id="ingredients" type="text" formControlName="ingredients" class="recipes-filters__value">
-        <!-- <mat-form-field class="example-chip-list" appearance="fill">
-          <mat-label>Favorite Fruits</mat-label>
-          <mat-chip-grid #chipGrid aria-label="Enter fruits">
-            <mat-chip-row *ngFor="let fruit of fruits"
-                          (removed)="remove(fruit)"
-                          [editable]="true"
-                          (edited)="edit(fruit, $event)"
-                          [aria-description]="'press enter to edit ' + fruit.name">
-              {{fruit.name}}
-              <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
+        <mat-form-field appearance="fill">
+          <mat-chip-grid #chipGrid aria-label="Ingredientes" formControlName="ingredients">
+            @for (ingredient of ingredients; track $index) {
+            <mat-chip-row (removed)="removeIngredient(ingredient)" [editable]="true" (edited)="editIngredient(ingredient, $event)">
+              {{ingredient}}
+              <button matChipRemove>
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
-            <input placeholder="New fruit..."
-                   [matChipInputFor]="chipGrid"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="add($event)"/>
+            }
+            <input
+              placeholder="Ingrediente..."
+              [matChipInputFor]="chipGrid"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="addIngredient($event)" />
           </mat-chip-grid>
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
       <div class="checkbox-wrapper">
         <p class="recipes-filters__title">Personas</p>

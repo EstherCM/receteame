@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule, MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+
 import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
 import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
 import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
@@ -18,14 +22,15 @@ import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
     '../../../../styles/checkbox.scss',
     '../../../../styles/button.scss',
   ],
-  imports: [ReactiveFormsModule, MatSliderModule, MatChipsModule],
+  imports: [ReactiveFormsModule, MatSliderModule, MatFormFieldModule, MatChipsModule, MatIconModule],
+  animations: []
 })
 export class RecipesComponent implements OnInit {
   recipes: IRecipe[] = [];
 
   searchRecipeForm = new FormGroup({
     name: new FormControl(''),
-    ingredients: new FormControl([]),
+    ingredients: new FormArray([]),
     people: new FormArray([]),
     time: new FormGroup({
       start: new FormControl(1),
@@ -34,7 +39,8 @@ export class RecipesComponent implements OnInit {
     type: new FormControl(),
   });
 
-  ingredients = [];
+  ingredients: string[] = [];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
   people = [1, 2, 4, 8];
   min = 0;
   max = 240;
@@ -57,41 +63,47 @@ export class RecipesComponent implements OnInit {
     });
   }
 
-  // add(event: MatChipInputEvent): void {
-  //   const value = (event.value || '').trim();
+  addIngredient($event: MatChipInputEvent) {
+    const value = ($event.value || '').trim();
+    const ingredientForm = this.searchRecipeForm.get('ingredients') as FormArray;
+  
+    if (value) {
+      this.ingredients.push(value);
+      ingredientForm.push(new FormControl(value));
+    }
 
-  //   // Add our fruit
-  //   if (value) {
-  //     this.ingredients.push({name: value});
-  //   }
+    $event.chipInput!.clear();
+  }
 
-  //   // Clear the input value
-  //   event.chipInput!.clear();
-  // }
+  removeIngredient(ingredient: string) {
+    const index = this.ingredients.indexOf(ingredient);
+    const ingredientForm = this.searchRecipeForm.get('ingredients') as FormArray;
 
-  // remove(fruit: string): void {
-  //   const index = this.ingredients.indexOf(fruit);
+    if (index >= 0) {
+      this.ingredients.splice(index, 1);
+      ingredientForm.removeAt(index);
+    }
 
-  //   if (index >= 0) {
-  //     this.ingredients.splice(index, 1);
-  //   }
-  // }
+  }
 
-  // edit(fruit: string, event: MatChipEditedEvent) {
-  //   const value = event.value.trim();
+  editIngredient(ingredient: string, $event: MatChipEditedEvent) {
+    const value = $event.value.trim();
 
-  //   // Remove fruit if it no longer has a name
-  //   if (!value) {
-  //     this.remove(fruit);
-  //     return;
-  //   }
+    if (!value) {
+      this.removeIngredient(ingredient);
+      return;
+    }
 
-  //   // Edit existing fruit
-  //   const index = this.ingredients.indexOf(fruit);
-  //   if (index >= 0) {
-  //     this.ingredients[index].name = value;
-  //   }
-  // }
+    const index = this.ingredients.indexOf(ingredient);
+    const ingredientForm = this.searchRecipeForm.get('ingredients') as FormArray;
+
+    if (index >= 0) {
+      const ingredientControl = ingredientForm.at(index);
+
+      this.ingredients[index] = value;
+      ingredientControl.setValue(value);
+    }
+  }
 
   onChangePeople($event: Event) {
     const checkedValue = ($event.target as HTMLInputElement).value;
