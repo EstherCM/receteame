@@ -38,18 +38,21 @@ const getById = async (id: string) => {
   }
 };
 
-const getRecipes = async (query: { [x: string]: string }) => {
+const getRecipes = async (query: { [x: string]: string | string[] }) => {
   let criterial: any = {};
 
   const propsToFind = ['name', 'ingredients', 'people', 'time', 'type'];
 
   propsToFind.forEach((prop) => {
     if (_.has(query, prop)) {
-      criterial[prop] = query[prop];
-
       if (prop === 'time') {
-        const [start, end] = query['time'].split('-');
+        const [start, end] = (query['time'] as string).split('-');
         criterial[prop] = { $gte: Number(start), $lte: Number(end) };
+      } else if (prop === 'ingredients') {
+        const ingredients = Array.isArray(query[prop]) ? query[prop] : [query[prop]];
+        criterial[prop] = { $all: (ingredients as string[]).map((ingredient) => new RegExp(ingredient, 'i')) };
+      } else {
+        criterial[prop] = query[prop];
       }
     }
   });
