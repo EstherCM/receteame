@@ -42,7 +42,7 @@ const recipeSchema = new Schema(
     type: [String],
     createdBy: {
       type: Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: 'User',
     },
   },

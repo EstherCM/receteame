@@ -3,7 +3,7 @@ const RecipeService = require('../services/recipeService');
 
 export const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const createdRecipe = await RecipeService.createRecipe(req.body);
+    const createdRecipe = await RecipeService.create(req.body);
 
     res.status(201).json(createdRecipe);
   } catch (e) {
@@ -35,7 +35,7 @@ export const getRecipes = async (req: Request, res: Response, next: NextFunction
 
 export const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const updatedRecipe = await RecipeService.updateRecipe(req.params.id, req.body);
+    const updatedRecipe = await RecipeService.update(req.params.id, req.body);
 
     res.status(200).json(updatedRecipe);
   } catch (e) {
@@ -45,7 +45,7 @@ export const update = async (req: Request, res: Response, next: NextFunction) =>
 
 export const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await RecipeService.removeRecipe(req.params.id);
+    const result = await RecipeService.remove(req.params.id);
 
     res.status(200).json(result);
   } catch (e) {
