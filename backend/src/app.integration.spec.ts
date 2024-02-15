@@ -5,7 +5,7 @@ const { Recipe } = require('./database/models/recipeModel');
 
 console.info = jest.fn();
 
-describe('[routes] integration test /api/v1/', () => {
+describe('[app routes] integration test /api/v1/', () => {
   const baseUrl = '/api/v1/';
 
   beforeAll(async () => {
