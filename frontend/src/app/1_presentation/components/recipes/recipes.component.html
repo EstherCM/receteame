@@ -52,6 +52,7 @@
       <div class="recipes-filters__item">
         <label for="type" class="recipes-filters__title">Tipo</label>
         <select id="type" formControlName="type" class="recipes-filters__value" (change)="onChangeType($event)">
+          <option></option>
           @for (type of types; track $index) {
           <option [value]="type">{{type}}</option>
           }
@@ -65,6 +66,18 @@
     @if (recipes) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
+      <div class="recipe-item">
+        <img [src]="recipe.image" class="recipe-item__img">
+        <p class="recipe-item__name">{{ recipe.name }}</p>
+      </div>
       <div class="recipe-item">
         <img [src]="recipe.image" class="recipe-item__img">
         <p class="recipe-item__name">{{ recipe.name }}</p>

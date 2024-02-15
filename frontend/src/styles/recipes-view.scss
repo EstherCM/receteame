@@ -2,11 +2,12 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 72px);
 
   &__items {
     padding: 0px 56px;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
   }
 }
