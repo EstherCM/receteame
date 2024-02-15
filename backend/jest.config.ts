@@ -16,6 +16,7 @@ const config: Config = {
     '!src/database/models/**/*.ts',
     '!src/config/**/*.ts',
     '!src/controllers/index.ts',
+    '!src/routes/recipeRoutes.ts',
   ],
 };
 

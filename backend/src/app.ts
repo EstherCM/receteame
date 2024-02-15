@@ -52,8 +52,8 @@ app.use((error: CustomError, req: Request, res: Response, next: NextFunction) =>
   res.status(error.status).json(data);
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.info(`🏃 App running in port: ${port}`);
 });
 
-export {};
+module.exports = { app, server };
