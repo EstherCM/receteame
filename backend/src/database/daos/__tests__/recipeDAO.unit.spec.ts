@@ -1,5 +1,5 @@
 import { create, getBy, update, remove } from '../recipeDAO';
-const Recipe = require('../../models/recipeModel');
+const { Recipe } = require('../../models/recipeModel');
 
 console.error = jest.fn();
 
