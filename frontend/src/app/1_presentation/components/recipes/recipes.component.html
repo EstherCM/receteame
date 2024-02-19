@@ -2,13 +2,13 @@
   <aside class="recipes-filters">
     <form [formGroup]="searchRecipeForm" (ngSubmit)="onSubmit()">
       <div class="recipes-filters__item">
-        <label for="name" class="recipes-filters__title">Nombre</label>
-        <input id="name" type="text" formControlName="name" class="recipes-filters__value">
+        <label for="name" class="recipes-filters__title" data-test="recipeNameLabel">Nombre</label>
+        <input id="name" type="text" formControlName="name" class="recipes-filters__value" data-test="recipeNameInput">
       </div>
       <div class="recipes-filters__item">
-        <label for="ingredients" class="recipes-filters__title">Ingredientes</label>
+        <label for="ingredients" class="recipes-filters__title" data-test="recipeIngredientsLabel">Ingredientes</label>
         <mat-form-field appearance="fill">
-          <mat-chip-grid #chipGrid aria-label="Ingredientes" formControlName="ingredients">
+          <mat-chip-grid #chipGrid aria-label="Ingredientes" formArrayName="ingredients">
             @for (ingredient of ingredients; track $index) {
             <mat-chip-row (removed)="removeIngredient(ingredient)" [editable]="true" (edited)="editIngredient(ingredient, $event)">
               {{ingredient}}
@@ -27,7 +27,7 @@
         </mat-form-field>
       </div>
       <div class="checkbox-wrapper">
-        <p class="recipes-filters__title">Personas</p>
+        <p class="recipes-filters__title" data-test="recipePeopleLabel">Personas</p>
         @for (person of people; track $index) {
         <label class="checkbox">
           <input type="checkbox" class="checkbox__trigger hidden" (change)="onChangePeople($event)" [value]="person"
@@ -43,53 +43,32 @@
         }
       </div>
       <div class="recipes-filters__item">
-        <label for="time" class="recipes-filters__title">Tiempo</label>
+        <label for="time" class="recipes-filters__title" data-test="recipeTimeLabel">Tiempo</label>
         <mat-slider discrete [min]="min" [max]="max" formGroupName="time" [step]="stepValue" thumbLabel [displayWith]="formatLabel">
           <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)">
           <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)">
         </mat-slider>
       </div>
       <div class="recipes-filters__item">
-        <label for="type" class="recipes-filters__title">Tipo</label>
+        <label for="type" class="recipes-filters__title" data-test="recipeTypeLabel">Tipo</label>
         <select id="type" formControlName="type" class="recipes-filters__value" (change)="onChangeType($event)">
           <option></option>
           @for (type of types; track $index) {
           <option [value]="type">{{type}}</option>
           }
         </select>
-        
       </div>
-      <button type="submit" [disabled]="!searchRecipeForm.valid" class="button">Buscar</button>
+      <button type="submit" [disabled]="!searchRecipeForm.valid" class="button" data-test="searchButton">Buscar</button>
     </form>
   </aside>
   <section class="recipes-view__items">
     @if (recipes) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {
-      <div class="recipe-item">
+      <article class="recipe-item" [attr.data-test]="recipe.name">
         <img [src]="recipe.image" class="recipe-item__img">
         <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
-      <div class="recipe-item">
-        <img [src]="recipe.image" class="recipe-item__img">
-        <p class="recipe-item__name">{{ recipe.name }}</p>
-      </div>
+      </article>
       }
     </div>
     }

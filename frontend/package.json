@@ -6,8 +6,9 @@
     "start": "ng serve --watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test:jest": "jest",
+    "test:watch": "jest --watch",
+    "test:playwright": "npx playwright test --ui"
   },
   "private": true,
   "dependencies": {
@@ -31,7 +32,9 @@
     "@angular-devkit/build-angular": "^17.1.1",
     "@angular/cli": "^17.1.1",
     "@angular/compiler-cli": "^17.1.0",
+    "@playwright/test": "^1.41.2",
     "@types/jest": "^29.5.11",
+    "@types/node": "^20.11.19",
     "jasmine-core": "~5.1.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",

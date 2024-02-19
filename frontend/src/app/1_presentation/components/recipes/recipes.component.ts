@@ -66,7 +66,7 @@ export class RecipesComponent implements OnInit {
   addIngredient($event: MatChipInputEvent) {
     const value = ($event.value || '').trim();
     const ingredientForm = this.searchRecipeForm.get('ingredients') as FormArray;
-  
+
     if (value) {
       this.ingredients.push(value);
       ingredientForm.push(new FormControl(value));
@@ -98,7 +98,7 @@ export class RecipesComponent implements OnInit {
     const ingredientForm = this.searchRecipeForm.get('ingredients') as FormArray;
 
     if (index >= 0) {
-      const ingredientControl = ingredientForm.at(index);
+      const ingredientControl = ingredientForm.at(index) as FormControl;
 
       this.ingredients[index] = value;
       ingredientControl.setValue(value);
