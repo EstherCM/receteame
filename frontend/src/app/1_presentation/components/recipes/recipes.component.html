@@ -7,7 +7,7 @@
       </div>
       <div class="recipes-filters__item">
         <label for="ingredients" class="recipes-filters__title" data-test="recipeIngredientsLabel">Ingredientes</label>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" data-test="recipeIngredientsInput">
           <mat-chip-grid #chipGrid aria-label="Ingredientes" formArrayName="ingredients">
             @for (ingredient of ingredients; track $index) {
             <mat-chip-row (removed)="removeIngredient(ingredient)" [editable]="true" (edited)="editIngredient(ingredient, $event)">
@@ -29,7 +29,7 @@
       <div class="checkbox-wrapper">
         <p class="recipes-filters__title" data-test="recipePeopleLabel">Personas</p>
         @for (person of people; track $index) {
-        <label class="checkbox">
+        <label class="checkbox" [attr.data-test]="'recipePeopleInput-' + person">
           <input type="checkbox" class="checkbox__trigger hidden" (change)="onChangePeople($event)" [value]="person"
             name="people" />
           <span class="checkbox__symbol">
@@ -45,13 +45,13 @@
       <div class="recipes-filters__item">
         <label for="time" class="recipes-filters__title" data-test="recipeTimeLabel">Tiempo</label>
         <mat-slider discrete [min]="min" [max]="max" formGroupName="time" [step]="stepValue" thumbLabel [displayWith]="formatLabel">
-          <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)">
-          <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)">
+          <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)" data-test="recipeMinTimeInput">
+          <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)" data-test="recipeMaxTimeInput">
         </mat-slider>
       </div>
       <div class="recipes-filters__item">
         <label for="type" class="recipes-filters__title" data-test="recipeTypeLabel">Tipo</label>
-        <select id="type" formControlName="type" class="recipes-filters__value" (change)="onChangeType($event)">
+        <select id="type" formControlName="type" class="recipes-filters__value" (change)="onChangeType($event)" data-test="recipeTypeSelect">
           <option></option>
           @for (type of types; track $index) {
           <option [value]="type">{{type}}</option>
@@ -65,7 +65,7 @@
     @if (recipes) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {
-      <article class="recipe-item" [attr.data-test]="recipe.name">
+      <article class="recipe-item" [attr.data-test]="'recipe-' + recipe.name">
         <img [src]="recipe.image" class="recipe-item__img">
         <p class="recipe-item__name">{{ recipe.name }}</p>
       </article>
