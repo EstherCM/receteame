@@ -1,0 +1,64 @@
+<main class="recipes-filters-container">
+  <aside class="recipes-filters">
+    <form [formGroup]="searchRecipeForm" (ngSubmit)="onSubmit()">
+      <div class="recipes-filters__item">
+        <label for="name" class="recipes-filters__title" data-test="recipeNameLabel">Nombre</label>
+        <input id="name" type="text" formControlName="name" class="recipes-filters__value" data-test="recipeNameInput">
+      </div>
+      <div class="recipes-filters__item">
+        <label for="ingredients" class="recipes-filters__title" data-test="recipeIngredientsLabel">Ingredientes</label>
+        <mat-form-field appearance="fill" data-test="recipeIngredientsInput">
+          <mat-chip-grid #chipGrid aria-label="Ingredientes" formArrayName="ingredients">
+            @for (ingredient of ingredients; track $index) {
+            <mat-chip-row (removed)="removeIngredient(ingredient)" [editable]="true" (edited)="editIngredient(ingredient, $event)">
+              {{ingredient}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            }
+            <input
+              placeholder="Ingrediente..."
+              [matChipInputFor]="chipGrid"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="addIngredient($event)" />
+          </mat-chip-grid>
+        </mat-form-field>
+      </div>
+      <div class="checkbox-wrapper">
+        <p class="recipes-filters__title" data-test="recipePeopleLabel">Personas</p>
+        @for (person of people; track $index) {
+        <label class="checkbox" [attr.data-test]="'recipePeopleInput-' + person">
+          <input type="checkbox" class="checkbox__trigger hidden" (change)="onChangePeople($event)" [value]="person"
+            name="people" />
+          <span class="checkbox__symbol">
+            <svg aria-hidden="true" class="checkbox__icon" width="28px" height="28px" viewBox="0 0 28 28" version="1"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 14l8 7L24 7"></path>
+            </svg>
+          </span>
+          <p class="checkbox__text">{{ person }}</p>
+        </label>
+        }
+      </div>
+      <div class="recipes-filters__item">
+        <label for="time" class="recipes-filters__title" data-test="recipeTimeLabel">Tiempo</label>
+        <mat-slider discrete [min]="min" [max]="max" formGroupName="time" [step]="stepValue" thumbLabel [displayWith]="formatLabel">
+          <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)" data-test="recipeMinTimeInput">
+          <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)" data-test="recipeMaxTimeInput">
+        </mat-slider>
+      </div>
+      <div class="recipes-filters__item">
+        <label for="type" class="recipes-filters__title" data-test="recipeTypeLabel">Tipo</label>
+        <select id="type" formControlName="type" class="recipes-filters__value" (change)="onChangeType($event)" data-test="recipeTypeSelect">
+          <option></option>
+          @for (type of types; track $index) {
+          <option [value]="type">{{type}}</option>
+          }
+        </select>
+      </div>
+      <button type="submit" [disabled]="!searchRecipeForm.valid" class="button" data-test="searchButton">Buscar</button>
+    </form>
+  </aside>
+</main>
