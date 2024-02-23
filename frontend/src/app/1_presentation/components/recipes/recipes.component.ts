@@ -11,7 +11,8 @@ import { FiltersComponent } from '../filters/filters.component';
   styleUrls: [
     '../../../../styles/recipes-view.scss',
     '../../../../styles/recipe-list.scss',
-    '../../../../styles/recipe-item.scss'
+    '../../../../styles/recipe-item.scss',
+    '../../../../styles/components/button.scss'
   ],
   imports: [FiltersComponent]
 })

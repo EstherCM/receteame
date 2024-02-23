@@ -1,6 +1,8 @@
 .header {
   font-family: 'Satisfy', sans-serif;
-  background-color: #FFD375;
+  background-color: #744c87;
+  color: #FFD375;
+  border-bottom: 2px solid #FFD375;
 
   &__content {
     display: flex;
@@ -16,7 +18,8 @@
   }
 
   &__name {
-    margin-left:-24px;
+    margin-left: 64px;
+    margin-top: 8px;
     font-size: -webkit-xxx-large;
   }
 }

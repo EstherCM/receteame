@@ -1,11 +1,22 @@
+.recipes-filters-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+
+}
+
 .recipes-filters {
   background: #FCEED6;
   background-image: radial-gradient(#FFD375 1px, transparent 0);
   background-size: 48px 48px;
   background-position: 24px 24px;
   height: 100%;
-  width: 600px;
-  padding: 0px 8px;
+  width: 364px;
+  padding: 0px 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

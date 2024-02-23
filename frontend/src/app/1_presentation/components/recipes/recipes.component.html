@@ -3,7 +3,10 @@
   <app-filters></app-filters>
   }
   <section class="recipes-view__items">
-    <button (click)="toggleFilterBar($event)">Filtros</button>
+    <button class="button" (click)="toggleFilterBar($event)">
+      <img src="../../../../assets/searchLogo.png" class="button__logo">
+      <span>Filtros</span>
+    </button>
     @if (recipes) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {

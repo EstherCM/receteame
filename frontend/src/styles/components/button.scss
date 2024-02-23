@@ -1,11 +1,19 @@
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 16px;
   background-color: #FFD375;
   border: 2px solid #ffc341;
   border-radius: 12px;
-  margin-top: 48px;
-  width: 100%;
+  margin-top: 16px;
   height: 56px;
   cursor: pointer;
+  padding: 16px;
+
+  &__logo {
+    width: 20px;
+    margin-right: 4px;
+  }
 }
