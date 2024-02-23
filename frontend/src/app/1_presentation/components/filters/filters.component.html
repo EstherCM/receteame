@@ -1,5 +1,5 @@
-<main class="recipes-filters-container">
-  <aside class="recipes-filters">
+<main class="recipes-filters-container" [ngClass]="{ 'recipes-filters-container--open': isOpen }">
+  <aside id="filtersBar" class="recipes-filters" [ngClass]="{ 'recipes-filters--open': isOpen }">
     <form [formGroup]="searchRecipeForm" (ngSubmit)="onSubmit()">
       <div class="recipes-filters__item">
         <label for="name" class="recipes-filters__title" data-test="recipeNameLabel">Nombre</label>

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule, MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
 import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
@@ -13,7 +14,7 @@ import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [ReactiveFormsModule, MatSliderModule, MatFormFieldModule, MatChipsModule, MatIconModule],
+  imports: [ReactiveFormsModule, MatSliderModule, MatFormFieldModule, MatChipsModule, MatIconModule, CommonModule],
   animations: [],
   templateUrl: './filters.component.html',
   styleUrls: [
@@ -23,6 +24,8 @@ import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
   ],
 })
 export class FiltersComponent {
+  @Input() isOpen = false;
+
   recipes: IRecipe[] = [];
   searchRecipeForm = new FormGroup({
     name: new FormControl(''),

@@ -1,7 +1,5 @@
 <main class="recipes-view">
-  @if (showFilterBar) {
-  <app-filters></app-filters>
-  }
+  <app-filters [isOpen]="showFilterBar"></app-filters>
   <section class="recipes-view__items">
     <button class="button" (click)="toggleFilterBar($event)">
       <img src="../../../../assets/searchLogo.png" class="button__logo">

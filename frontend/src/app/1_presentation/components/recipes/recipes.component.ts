@@ -41,10 +41,21 @@ export class RecipesComponent implements OnInit {
   }
 
   handleOutFilterClick(event: Event) {
-    const appFiltersElement = this.el.nativeElement.querySelector('app-filters');
+    const appFiltersElement = this.el.nativeElement.querySelector('#filtersBar');
+    const clickedNode = event.target as Node;
 
-    if (this.showFilterBar && event.target !== appFiltersElement) {
+    if (!this.isInFilterBar(appFiltersElement, clickedNode)) {
       this.closeFilters();
     }
+  }
+
+  private isInFilterBar(parent: Node, child: Node): boolean {
+    let node: Node | null = child;
+
+    while (node !== null && node !== parent) {
+      node = node.parentNode;
+    }
+
+    return node === parent;
   }
 }

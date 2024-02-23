@@ -7,7 +7,7 @@ import "@fontsource/satisfy";
   standalone: true,
   imports: [RecipesComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['../styles/header.scss']
+  styleUrls: ['../styles/header.scss', '../styles/main.scss']
 })
 export class AppComponent {
   title = 'Receteame';
