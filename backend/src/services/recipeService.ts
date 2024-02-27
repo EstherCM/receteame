@@ -38,7 +38,7 @@ const getById = async (id: string) => {
   }
 };
 
-const getRecipes = async (query: { [x: string]: string | string[] }) => {
+const getRecipes = async (query: { [x: string]: string | string[] | number }) => {
   let criterial: any = {};
 
   const propsToFind = ['name', 'ingredients', 'people', 'time', 'type'];
@@ -58,7 +58,7 @@ const getRecipes = async (query: { [x: string]: string | string[] }) => {
   });
 
   try {
-    return await RecipeDAO.getBy(criterial);
+    return await RecipeDAO.getBy(criterial, query.page, query.pageSize);
   } catch (e) {
     return { error: e };
   }

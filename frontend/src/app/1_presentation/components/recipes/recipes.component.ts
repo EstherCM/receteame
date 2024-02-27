@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 
 import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
-import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
 import { FiltersComponent } from '../filters/filters.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { RecipesService } from '../../services/recipes.service';
 
 @Component({
   selector: 'app-recipes',
@@ -14,19 +15,17 @@ import { FiltersComponent } from '../filters/filters.component';
     '../../../../styles/recipe-item.scss',
     '../../../../styles/components/button.scss'
   ],
-  imports: [FiltersComponent]
+  imports: [FiltersComponent, PaginationComponent]
 })
 export class RecipesComponent implements OnInit {
   recipes: IRecipe[] = [];
   showFilterBar = false;
 
-  constructor(private recipeRepository: RecipeRepository, private el: ElementRef) {}
+  constructor(private el: ElementRef, private recipesService: RecipesService) {}
 
-  ngOnInit(): void {
-    this.recipeRepository.get({}).subscribe({
-      next: (recipes: IRecipe[]) => (this.recipes = recipes),
-      error: (error) => console.error('🔥 Error getting recipes:', error),
-    });
+  ngOnInit() {
+    this.recipesService.get();
+    this.recipesService.recipes$.subscribe((recipes) => this.recipes = recipes);
     document.addEventListener('click', (event) => this.handleOutFilterClick(event));
   }
 
@@ -34,7 +33,7 @@ export class RecipesComponent implements OnInit {
     this.showFilterBar = false;
   }
 
-  toggleFilterBar(event: Event): void {
+  toggleFilterBar(event: Event) {
     event.stopPropagation();
 
     this.showFilterBar = !this.showFilterBar;
@@ -57,5 +56,10 @@ export class RecipesComponent implements OnInit {
     }
 
     return node === parent;
+  }
+
+  updateRecipes(recipes: IRecipe[]) {
+    this.recipes = recipes;
+    this.closeFilters();
   }
 }

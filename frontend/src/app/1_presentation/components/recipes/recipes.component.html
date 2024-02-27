@@ -1,6 +1,6 @@
 <main class="recipes-view">
-  <app-filters [isOpen]="showFilterBar"></app-filters>
-  <section class="recipes-view__items">
+  <app-filters [isOpen]="showFilterBar" (recipes)="updateRecipes($event)"></app-filters>
+  <section class="recipes-view__items" aria-label="Vista de las recetas">
     <button class="button" (click)="toggleFilterBar($event)">
       <img src="../../../../assets/searchLogo.png" class="button__logo">
       <span>Filtros</span>
@@ -16,4 +16,5 @@
     </div>
     }
   </section>
+  <app-pagination></app-pagination>
 </main>

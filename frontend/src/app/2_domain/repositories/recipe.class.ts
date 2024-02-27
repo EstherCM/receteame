@@ -22,7 +22,7 @@ export class RecipeRepository {
         end: number;
       };
       type: TypeRecipe;
-    }>
+    }>, page: number, pageSize: number
   ): Observable<IRecipe[]> {
     let queryParams = new HttpParams();
 
@@ -52,6 +52,14 @@ export class RecipeRepository {
 
     if (filters.type) {
       queryParams = queryParams.set('type', filters.type);
+    }
+
+    if (page) {
+      queryParams = queryParams.set('page', page);
+    }
+
+    if (pageSize) {
+      queryParams = queryParams.set('pageSize', pageSize);
     }
 
     return this.recipeAdapter.get(queryParams);

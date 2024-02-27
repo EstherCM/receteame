@@ -11,9 +11,10 @@ export const create = async (body: IRecipe) => {
   }
 };
 
-export const getBy = async (query: { [x: string]: string }) => {
+export const getBy = async (query: { [x: string]: string }, currentPage: number, pageSize: number) => {
   try {
-    return await Recipe.find(query);
+    const skip = (currentPage - 1) * pageSize;
+    return await Recipe.find(query).skip(skip).limit(pageSize);
   } catch (e) {
     console.error(`🔥 [DAO] Error getting recipe ${query._id}, ${e}`);
     return e;

@@ -6,10 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule, MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { EventEmitter, Output } from '@angular/core';
 
-import { RecipeRepository } from '../../../2_domain/repositories/recipe.class';
 import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
 import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
+import { RecipesService } from '../../services/recipes.service';
 
 @Component({
   selector: 'app-filters',
@@ -25,8 +26,8 @@ import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
 })
 export class FiltersComponent {
   @Input() isOpen = false;
+  @Output() recipes = new EventEmitter<IRecipe[]>();
 
-  recipes: IRecipe[] = [];
   searchRecipeForm = new FormGroup({
     name: new FormControl(''),
     ingredients: new FormArray([]),
@@ -52,7 +53,7 @@ export class FiltersComponent {
     TypeRecipe.dessert,
   ];
 
-  constructor(private recipeRepository: RecipeRepository) {}
+  constructor(private recipesService: RecipesService) {}
 
   addIngredient($event: MatChipInputEvent) {
     const value = ($event.value || '').trim();
@@ -74,7 +75,6 @@ export class FiltersComponent {
       this.ingredients.splice(index, 1);
       ingredientForm.removeAt(index);
     }
-
   }
 
   editIngredient(ingredient: string, $event: MatChipEditedEvent) {
@@ -168,9 +168,9 @@ export class FiltersComponent {
       type: formValue.type || undefined,
     };
 
-    this.recipeRepository.get(filters).subscribe({
-      next: (recipes: IRecipe[]) => (this.recipes = recipes),
-      error: (error) => console.error('🔥 Error getting recipes:', error),
+    this.recipesService.setFilters(filters);
+    this.recipesService.recipes$.subscribe((recipes) => {
+      this.recipes.emit(recipes);
     });
   }
 }

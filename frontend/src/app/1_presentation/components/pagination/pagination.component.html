@@ -1,0 +1,9 @@
+<main>
+  <section>
+    @for (page of totalPages; track $index) {
+    <button (click)="goToPage(page)">
+      {{ page }}
+    </button>
+    }
+  </section>
+</main>
