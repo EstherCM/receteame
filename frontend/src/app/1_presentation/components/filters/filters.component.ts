@@ -50,7 +50,7 @@ export class FiltersComponent {
     TypeRecipe.second,
     TypeRecipe.dessert,
     TypeRecipe.snack,
-    TypeRecipe.dessert,
+    TypeRecipe.drink,
   ];
 
   constructor(private recipesService: RecipesService) {}

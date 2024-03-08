@@ -5,11 +5,11 @@ mongoose.set('strictQuery', false);
 mongoose.connect(connectionURI);
 
 mongoose.connection.on('connected', () => {
-  console.info('Connected');
+  console.info('🔌 Connected to mongodb');
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.info('Disconnected');
+  console.info('😴 Disconnected to mongodb');
 });
 
 mongoose.connection.on('error', (err: Error) => {

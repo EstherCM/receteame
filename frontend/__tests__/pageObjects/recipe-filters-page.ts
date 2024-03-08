@@ -12,11 +12,18 @@ export class RecipeFiltersPage {
     await this.page.goto('http://localhost:4200/');
   }
 
+  async openFilters() {
+    const filtersButtonSelector = '[data-test="filtersButton"]';
+
+    await this.page.waitForSelector(filtersButtonSelector);
+    await this.page.click(filtersButtonSelector);
+  }
+
   async filterByName(attributeName: string) {
     await this.page.fill('[data-test="recipeNameLabel"]', attributeName);
     await this.page.click(this.buttonSelector);
 
-    return await this.page.evaluate((prefix) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
+    return await this.page.evaluate((prefix: any) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
   }
 
   async filterByIngredients(value: string) {
@@ -26,7 +33,7 @@ export class RecipeFiltersPage {
     await this.page.fill(selector, value);
     await this.page.click(this.buttonSelector);
 
-    return await this.page.evaluate((prefix) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
+    return await this.page.evaluate((prefix: any) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
   }
 
   async filterByPeople(quantity: number) {
@@ -38,7 +45,7 @@ export class RecipeFiltersPage {
 
     await this.page.click(this.buttonSelector);
 
-    return await this.page.evaluate((prefix) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
+    return await this.page.evaluate((prefix: any) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
   }
 
   async filterByTime(min: number, max: number) {
@@ -51,19 +58,19 @@ export class RecipeFiltersPage {
     const minSlider = await this.page.$(minSliderSelector);
     const maxSlider = await this.page.$(maxSliderSelector);
 
-    await minSlider?.evaluate((slider, min) => {
+    await minSlider?.evaluate((slider: HTMLInputElement, min: any) => {
       (slider as HTMLInputElement).value = String(min);
       slider.dispatchEvent(new Event('input'));
     }, min);
 
-    await maxSlider?.evaluate((slider, max) => {
+    await maxSlider?.evaluate((slider: HTMLInputElement, max: any) => {
       (slider as HTMLInputElement).value = String(max);
       slider.dispatchEvent(new Event('input'));
     }, max);
 
     await this.page.click(this.buttonSelector);
 
-    return await this.page.evaluate((prefix) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
+    return await this.page.evaluate((prefix: any) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
   }
 
   async filterByType(value: string) {
@@ -73,6 +80,6 @@ export class RecipeFiltersPage {
 
     await this.page.click(this.buttonSelector);
 
-    return await this.page.evaluate((prefix) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
+    return await this.page.evaluate((prefix: any) => document.querySelectorAll(`[data-test^="${prefix}"]`).length, 'recipe-');
   }
 }
