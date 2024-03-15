@@ -16,7 +16,6 @@ import { RecipesService } from '../../services/recipes.service';
   selector: 'app-filters',
   standalone: true,
   imports: [ReactiveFormsModule, MatSliderModule, MatFormFieldModule, MatChipsModule, MatIconModule, CommonModule],
-  animations: [],
   templateUrl: './filters.component.html',
   styleUrls: [
     '../../../../styles/recipes-filters.scss',
