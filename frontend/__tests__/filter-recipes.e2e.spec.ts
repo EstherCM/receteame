@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
 
 import { RecipeFiltersPage } from './pageObjects/recipe-filters-page';
-import { TypeRecipe } from '../src/app/2_domain/models/type-recipe.enum';
 
 const mockRecipes = [
   {

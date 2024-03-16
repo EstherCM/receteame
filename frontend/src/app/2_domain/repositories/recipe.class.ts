@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
 
 import { RecipeAdapter } from '../../3_adapter/recipe.class';
-import { IRecipe } from '../../../../../backend/src/database/models/recipeModel';
-import { TypeRecipe } from '../models/type-recipe.enum';
 
 @Injectable({
   providedIn: 'root',

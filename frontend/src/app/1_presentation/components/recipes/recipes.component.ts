@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
 
-import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
 import { FiltersComponent } from '../filters/filters.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { RecipesService } from '../../services/recipes.service';

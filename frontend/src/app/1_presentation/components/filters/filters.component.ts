@@ -7,9 +7,9 @@ import { MatChipsModule, MatChipEditedEvent, MatChipInputEvent } from '@angular/
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { EventEmitter, Output } from '@angular/core';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
+import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
 
-import { IRecipe } from '../../../../../../backend/src/database/models/recipeModel';
-import { TypeRecipe } from '../../../2_domain/models/type-recipe.enum';
 import { RecipesService } from '../../services/recipes.service';
 
 @Component({
@@ -48,7 +48,9 @@ export class FiltersComponent {
     TypeRecipe.first,
     TypeRecipe.second,
     TypeRecipe.dessert,
+    TypeRecipe.breakfast,
     TypeRecipe.snack,
+    TypeRecipe.dinner,
     TypeRecipe.drink,
   ];
 

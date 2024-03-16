@@ -6,7 +6,7 @@
     "start": "ng serve --watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test:jest": "jest",
+    "test:jest": "jest --coverage",
     "test:watch": "jest --watch",
     "test:playwright": "npx playwright test --ui"
   },

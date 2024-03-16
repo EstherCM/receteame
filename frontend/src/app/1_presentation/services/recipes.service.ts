@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
 
-import { IRecipe } from '../../../../../backend/src/database/models/recipeModel';
 import { RecipeRepository } from '../../2_domain/repositories/recipe.class';
-import { TypeRecipe } from '../../2_domain/models/type-recipe.enum';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,5 @@
-import { IRecipe } from '../database/models/recipeModel';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
+
 const RecipeDAO = require('../database/daos/recipeDAO');
 const _ = require('underscore');
 

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { IRecipe } from '../../../../backend/src/database/models/recipeModel';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
 
 @Injectable({
   providedIn: 'root',

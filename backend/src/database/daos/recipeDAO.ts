@@ -1,4 +1,4 @@
-import { IRecipe } from '../models/recipeModel';
+import { IRecipe } from 'recipe-models/src/interfaces/recipes';
 
 const { Recipe } = require('../models/recipeModel');
 

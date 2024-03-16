@@ -1,18 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-export interface IRecipe {
-  name: string;
-  image: string;
-  ingredients: string[];
-  preparation: string[];
-  people: number;
-  time: number;
-  notes: string;
-  tags: string[];
-  type: string[];
-}
-
 const recipeSchema = new Schema(
   {
     name: {
@@ -57,7 +45,7 @@ const recipeSchema = new Schema(
         return ret;
       },
     },
-  }
+  },
 );
 
 export const Recipe = mongoose.model('recipe', recipeSchema);
