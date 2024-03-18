@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
-import { IRecipe } from 'recipe-models/src/interfaces/recipes';
+import { TypeRecipe, IRecipe } from 'recipe-models';
 
 import { RecipeRepository } from '../../2_domain/repositories/recipe.class';
 

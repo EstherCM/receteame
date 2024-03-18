@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
-import { IRecipe } from 'recipe-models/src/interfaces/recipes';
+import { TypeRecipe, IRecipe } from 'recipe-models';
 
 import { RecipeAdapter } from '../../3_adapter/recipe.class';
 

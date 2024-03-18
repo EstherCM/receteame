@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --watch",
+    "start": "npm link recipe-models && ng serve --watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test:jest": "jest --coverage",

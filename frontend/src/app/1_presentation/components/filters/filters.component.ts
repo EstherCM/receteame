@@ -7,8 +7,7 @@ import { MatChipsModule, MatChipEditedEvent, MatChipInputEvent } from '@angular/
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { EventEmitter, Output } from '@angular/core';
-import { IRecipe } from 'recipe-models/src/interfaces/recipes';
-import { TypeRecipe } from 'recipe-models/src/enums/type-recipe.enum';
+import { IRecipe, TypeRecipe } from 'recipe-models';
 
 import { RecipesService } from '../../services/recipes.service';
 
