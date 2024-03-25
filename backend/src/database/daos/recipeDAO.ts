@@ -1,4 +1,4 @@
-import { IRecipe } from 'recipe-models/src/interfaces/recipes';
+import { IRecipe } from 'recipe-models';
 
 const { Recipe } = require('../models/recipeModel');
 
@@ -11,7 +11,7 @@ export const create = async (body: IRecipe) => {
   }
 };
 
-export const getBy = async (query: { [x: string]: string }, currentPage: number, pageSize: number) => {
+export const getBy = async (query: { [x: string]: string }, currentPage: number = 1, pageSize: number = 9) => {
   try {
     const skip = (currentPage - 1) * pageSize;
     return await Recipe.find(query).skip(skip).limit(pageSize);

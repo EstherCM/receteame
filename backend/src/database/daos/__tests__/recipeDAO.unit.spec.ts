@@ -1,3 +1,5 @@
+import { TypeRecipe } from 'recipe-models';
+
 import { create, getBy, update, remove } from '../recipeDAO';
 const { Recipe } = require('../../models/recipeModel');
 
@@ -18,7 +20,7 @@ describe('[recipeDAO] unit test', () => {
         time: 240,
         notes: 'mockedNotes',
         tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
+        type: [TypeRecipe.breakfast],
       };
 
       const createdRecipe = { ...mockedNewRecipe, _id: 'mockedRecipeId' };
@@ -49,7 +51,7 @@ describe('[recipeDAO] unit test', () => {
         time: 240,
         notes: 'mockedNotes',
         tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
+        type: [TypeRecipe.dessert],
       };
 
       const mockedError = new Error('Error creating recipe');
@@ -79,7 +81,7 @@ describe('[recipeDAO] unit test', () => {
           time: 240,
           notes: 'mockedNotes',
           tags: ['Tag1', 'Tag2'],
-          type: ['Type1', 'Type2'],
+          type: [TypeRecipe.dinner],
         },
         {
           _id: '2',
@@ -115,7 +117,7 @@ describe('[recipeDAO] unit test', () => {
           time: 240,
           notes: 'mockedNotes',
           tags: ['Tag1', 'Tag2'],
-          type: ['Type1', 'Type2'],
+          type: [TypeRecipe.drink],
         },
         {
           _id: '2',
@@ -127,7 +129,7 @@ describe('[recipeDAO] unit test', () => {
           time: 240,
           notes: 'mockedNotes',
           tags: ['Tag1', 'Tag2'],
-          type: ['Type1', 'Type2'],
+          type: [TypeRecipe.drink],
         },
       ];
 
@@ -166,7 +168,7 @@ describe('[recipeDAO] unit test', () => {
         time: 240,
         notes: 'mockedNotes',
         tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
+        type: [TypeRecipe.second],
       };
       const id = 'mockedId';
       const mockResult = { ...updatedRecipeData };
@@ -191,7 +193,7 @@ describe('[recipeDAO] unit test', () => {
         time: 240,
         notes: 'mockedNotes',
         tags: ['Tag1', 'Tag2'],
-        type: ['Type1', 'Type2'],
+        type: [TypeRecipe.snack],
       };
       const id = 'mockedId';
       const mockError = new Error('Error updating recipe');
