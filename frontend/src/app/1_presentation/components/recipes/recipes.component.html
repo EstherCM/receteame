@@ -2,18 +2,22 @@
   <app-filters [isOpen]="showFilterBar" (recipes)="updateRecipes($event)"></app-filters>
   <section class="recipes-view__items" aria-label="Vista de las recetas">
     <button class="button" (click)="toggleFilterBar($event)" data-test="filtersButton">
-      <img src="../../../../assets/searchLogo.png" class="button__logo">
+      <img src="../../../../assets/searchLogo.png" class="button__logo" alt="Botón de búsqueda"/>
       <span>Filtros</span>
     </button>
-    @if (recipes) {
+
+    @if (!isLoading) {
     <div class="recipe-list">
       @for (recipe of recipes; track $index) {
       <article class="recipe-item" [attr.data-test]="'recipe-' + recipe.name">
-        <img [src]="recipe.image" class="recipe-item__img">
+        <img [src]="recipe.image" class="recipe-item__img" alt="Nombre de la receta"/>
         <p class="recipe-item__name">{{ recipe.name }}</p>
       </article>
       }
     </div>
+    } @else {
+      <ngx-skeleton-loader class="recipe-list" count="{{recipesPerPage}}" [theme]="themeConfig">
+      </ngx-skeleton-loader>
     }
   </section>
   <app-pagination></app-pagination>

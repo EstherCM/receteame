@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NgxSkeletonLoaderConfigTheme } from 'ngx-skeleton-loader';
 import { IRecipe } from 'recipe-models';
 
 import { FiltersComponent } from '../filters/filters.component';
@@ -15,17 +17,28 @@ import { RecipesService } from '../../services/recipes.service';
     '../../../../styles/recipe-item.scss',
     '../../../../styles/components/button.scss'
   ],
-  imports: [FiltersComponent, PaginationComponent]
+  imports: [FiltersComponent, PaginationComponent, NgxSkeletonLoaderModule]
 })
 export class RecipesComponent implements OnInit {
   recipes: IRecipe[] = [];
   showFilterBar = false;
+  isLoading = true;
+  themeConfig: NgxSkeletonLoaderConfigTheme = {
+    width: '550px',
+    height: '380px',
+    borderRadius: '10px',
+    shape: 'rect'
+  };
+  recipesPerPage = 9;
 
   constructor(private el: ElementRef, private recipesService: RecipesService) {}
 
   ngOnInit() {
     this.recipesService.get();
-    this.recipesService.recipes$.subscribe((recipes) => this.recipes = recipes);
+    this.recipesService.recipes$.subscribe((recipes) => {
+      this.recipes = recipes;
+      this.isLoading = false;
+    });
     document.addEventListener('click', (event) => this.handleOutFilterClick(event));
   }
 

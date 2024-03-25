@@ -24,6 +24,7 @@
     "@angular/router": "^17.3.0",
     "@fontsource/be-vietnam-pro": "^5.0.18",
     "@fontsource/satisfy": "^5.0.18",
+    "ngx-skeleton-loader": "^9.0.0",
     "rxjs": "~7.8.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.3.0",
