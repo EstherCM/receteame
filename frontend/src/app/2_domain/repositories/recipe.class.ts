@@ -22,7 +22,7 @@ export class RecipeRepository {
       };
       type: TypeRecipe;
     }>, page: number, pageSize: number
-  ): Observable<IRecipe[]> {
+  ): Observable<{ recipes: IRecipe[], total: number }> {
     let queryParams = new HttpParams();
 
     if (filters.name !== undefined && filters.name !== '') {

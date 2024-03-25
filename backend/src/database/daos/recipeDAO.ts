@@ -6,7 +6,7 @@ export const create = async (body: IRecipe) => {
   try {
     return await Recipe.create(body);
   } catch (e) {
-    console.error(`🔥 [DAO] Error creating recipe ${e}`);
+    console.error(`🔥 [recipeDAO] Error creating recipe ${e}`);
     return e;
   }
 };
@@ -16,7 +16,7 @@ export const getBy = async (query: { [x: string]: string }, currentPage: number 
     const skip = (currentPage - 1) * pageSize;
     return await Recipe.find(query).skip(skip).limit(pageSize);
   } catch (e) {
-    console.error(`🔥 [DAO] Error getting recipe ${query._id}, ${e}`);
+    console.error(`🔥 [recipeDAO] Error getting recipe ${query._id}, ${e}`);
     return e;
   }
 };
@@ -27,7 +27,7 @@ export const update = async (id: string, propsToUpdate: IRecipe) => {
       new: true,
     });
   } catch (e) {
-    console.error(`🔥 [DAO] Error updating recipe ${e}`);
+    console.error(`🔥 [recipeDAO] Error updating recipe ${e}`);
     return e;
   }
 };
@@ -36,7 +36,16 @@ export const remove = async (id: string) => {
   try {
     return await Recipe.deleteOne({ _id: id });
   } catch (e) {
-    console.error(`🔥 Error deleting recipe ${e}`);
+    console.error(`🔥 [recipeDAO] Error deleting recipe ${e}`);
     return e;
   }
 };
+
+export const countRecipes = async () => {
+  try {
+    return await Recipe.countDocuments();
+  } catch (e) {
+    console.error(`🔥 [recipeDAO] Error counting recipes, ${e}`);
+    return e;
+  }
+}

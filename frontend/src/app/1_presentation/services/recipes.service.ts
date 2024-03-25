@@ -32,9 +32,9 @@ export class RecipesService {
 
   get() {
     return this.recipeRepository.get(this.filters, this.currentPage, this.pageSize).subscribe({
-      next: (recipes: IRecipe[]) => {
+      next: ({ recipes, total }) => {
         this.recipesSubject.next(recipes);
-        this.totalItemsSubject.next(recipes.length)
+        this.totalItemsSubject.next(total);
       },
       error: (error) => console.error('🔥 Error getting recipes:', error),
     });

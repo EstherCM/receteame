@@ -18,10 +18,10 @@ export class RecipeAdapter {
     return this.http.post<IRecipe>(url, data);
   }
 
-  get(params: any): Observable<IRecipe[]> {
+  get(params: any): Observable<{ recipes: IRecipe[], total: number }> {
     const url = `${this.baseURL}/recipes`;
 
-    return this.http.get<IRecipe[]>(url, { params });
+    return this.http.get<{ recipes: IRecipe[], total: number }>(url, { params });
   }
 
   getById(id: string): Observable<IRecipe> {

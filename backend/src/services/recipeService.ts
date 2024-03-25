@@ -98,10 +98,19 @@ const remove = async (id: string) => {
   }
 };
 
+const countRecipes = async () => {
+  try {
+    return await RecipeDAO.countRecipes();
+  } catch (e) {
+    return { error: e };
+  }
+};
+
 module.exports = {
   create,
   getById,
   getRecipes,
   update,
   remove,
+  countRecipes,
 };

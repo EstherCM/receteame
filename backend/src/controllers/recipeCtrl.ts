@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+
 const RecipeService = require('../services/recipeService');
 
 export const create = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,9 +27,11 @@ export const getById = async (req: Request, res: Response, next: NextFunction) =
 export const getRecipes = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const recipes = await RecipeService.getRecipes(req.query);
+    const numRecipes = await RecipeService.countRecipes();
 
-    res.status(200).json(recipes);
+    res.status(200).json({ recipes: recipes, total: numRecipes });
   } catch (e) {
+    console.error(`🔥 [recipeCtrl] Error getting recipe ${e}`);
     return next(e);
   }
 };
