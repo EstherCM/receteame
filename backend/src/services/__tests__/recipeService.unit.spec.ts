@@ -60,7 +60,7 @@ describe('[recipeService] unit test', () => {
       const mockedRecipe = {
         _id: '2',
       };
-      const mockedError = new Error('Error getting recipe');
+      const mockedError = new Error('[recipeService-unit] Error getting recipe');
       recipeDAO.getBy.mockRejectedValueOnce({ error: mockedError });
 
       const result = await recipeService.getById('2');
@@ -74,24 +74,32 @@ describe('[recipeService] unit test', () => {
     it('should find recipe', async () => {
       const mockedRecipe = {
         name: 'mockedName2',
+        page: 1,
+        pageSize: 9,
       };
+      const getByMock = jest.fn();
+      recipeDAO.getBy = getByMock;
 
       await recipeService.getRecipes(mockedRecipe);
 
-      expect(recipeDAO.getBy).toHaveBeenCalledWith(mockedRecipe);
+      expect(recipeDAO.getBy).toHaveBeenCalledWith({ name: 'mockedName2' }, mockedRecipe.page, mockedRecipe.pageSize);
     });
 
     it('should failed when something is wrong', async () => {
       const mockedRecipe = {
         name: 'mockedName2',
+        page: 1,
+        pageSize: 9,
       };
-      const mockedError = new Error('Error getting recipe');
+      const getByMock = jest.fn();
+      recipeDAO.getBy = getByMock;
+      const mockedError = new Error('[recipeService-unit] Error getting recipe');
       recipeDAO.getBy.mockRejectedValueOnce({ error: mockedError });
 
       const result = await recipeService.getRecipes(mockedRecipe);
 
       expect(result.error).toEqual({ error: mockedError });
-      expect(recipeDAO.getBy).toHaveBeenCalledWith(mockedRecipe);
+      expect(recipeDAO.getBy).toHaveBeenCalledWith({ name: 'mockedName2' }, mockedRecipe.page, mockedRecipe.pageSize);
     });
   });
 

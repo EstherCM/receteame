@@ -10,9 +10,7 @@ describe('[app routes] integration test /api/v1/', () => {
 
   beforeAll(async () => {
     try {
-      await mongoose.connect(
-        process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/receteame',
-      );
+      await mongoose.connect(process.env.MONGODB_URI_DEV || 'mongodb://127.0.0.1:27017/receteame');
     } catch (e) {
       console.error(`🔥 Error connect mongoose in integration test ${e}`);
     }
@@ -62,7 +60,7 @@ describe('[app routes] integration test /api/v1/', () => {
         const res = await request(app).get(`${baseUrl}recipes`);
 
         expect(res.statusCode).toEqual(200);
-        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.recipes.length).toBeGreaterThan(0);
       });
 
       it('/api/v1/nonExistentRecipe should return 404', async () => {

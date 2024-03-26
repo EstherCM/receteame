@@ -66,84 +66,65 @@ describe('[recipeDAO] unit test', () => {
   });
 
   describe('getBy', () => {
-    const getMock = jest.fn();
-    Recipe.find = getMock;
+    const recipes = [
+      {
+        _id: '1',
+        name: 'recipe1',
+        image: 'mockedUrl',
+        ingredients: ['Ingredient1', 'Ingredient2'],
+        preparation: ['Preparation1', 'Preparation2'],
+        people: 4,
+        time: 240,
+        notes: 'mockedNotes',
+        tags: ['Tag1', 'Tag2'],
+        type: [TypeRecipe.dinner],
+      },
+      {
+        _id: '2',
+        name: 'recipe2',
+        image: 'mockedUrl',
+        ingredients: ['Ingredient1', 'Ingredient2'],
+        preparation: ['Preparation1', 'Preparation2'],
+        people: 4,
+        time: 240,
+        notes: 'mockedNotes',
+        tags: ['Tag1', 'Tag2'],
+        type: [TypeRecipe.breakfast, TypeRecipe.dessert],
+      },
+    ];
 
     it('should get a recipe by id', async () => {
-      const recipes = [
-        {
-          _id: '1',
-          name: 'recipe1',
-          image: 'mockedUrl',
-          ingredients: ['Ingredient1', 'Ingredient2'],
-          preparation: ['Preparation1', 'Preparation2'],
-          people: 4,
-          time: 240,
-          notes: 'mockedNotes',
-          tags: ['Tag1', 'Tag2'],
-          type: [TypeRecipe.dinner],
-        },
-        {
-          _id: '2',
-          name: 'recipe2',
-          image: 'mockedUrl',
-          ingredients: ['Ingredient1', 'Ingredient2'],
-          preparation: ['Preparation1', 'Preparation2'],
-          people: 4,
-          time: 240,
-          notes: 'mockedNotes',
-          tags: ['Tag1', 'Tag2'],
-          type: ['Type1', 'Type2'],
-        },
-      ];
-
-      getMock.mockResolvedValue(recipes[0]);
+      const findMock = jest.fn().mockResolvedValue(recipes[0]);
+      Recipe.find = jest.fn(() => ({
+        skip: jest.fn().mockReturnThis(),
+        limit: jest.fn().mockReturnThis(),
+        exec: findMock,
+      }));
 
       const result = await getBy({ _id: '1' });
 
       expect(result).toEqual(recipes[0]);
-      expect(getMock).toHaveBeenCalledWith({ _id: '1' });
+      expect(Recipe.find).toHaveBeenCalledWith({ _id: '1' });
     });
 
     it('should get a recipe by name', async () => {
-      const recipes = [
-        {
-          _id: '1',
-          name: 'recipe1',
-          image: 'mockedUrl',
-          ingredients: ['Ingredient1', 'Ingredient2'],
-          preparation: ['Preparation1', 'Preparation2'],
-          people: 4,
-          time: 240,
-          notes: 'mockedNotes',
-          tags: ['Tag1', 'Tag2'],
-          type: [TypeRecipe.drink],
-        },
-        {
-          _id: '2',
-          name: 'recipe2',
-          image: 'mockedUrl',
-          ingredients: ['Ingredient1', 'Ingredient2'],
-          preparation: ['Preparation1', 'Preparation2'],
-          people: 4,
-          time: 240,
-          notes: 'mockedNotes',
-          tags: ['Tag1', 'Tag2'],
-          type: [TypeRecipe.drink],
-        },
-      ];
-
-      getMock.mockResolvedValue(recipes[1]);
+      const findMock = jest.fn().mockResolvedValue(recipes[1]);
+      Recipe.find = jest.fn(() => ({
+        skip: jest.fn().mockReturnThis(),
+        limit: jest.fn().mockReturnThis(),
+        exec: findMock,
+      }));
 
       const result = await getBy({ name: 'recipe2' });
 
       expect(result).toEqual(recipes[1]);
-      expect(getMock).toHaveBeenCalledWith({ name: 'recipe2' });
+      expect(Recipe.find).toHaveBeenCalledWith({ name: 'recipe2' });
     });
 
     it("should return error when recipe couldn't be returned", async () => {
-      const mockedError = new Error('Error getting recipe');
-      getMock.mockRejectedValue(mockedError);
+      const findMock = jest.fn();
+      const mockedError = new Error('[recipeDAO-unit] Error getting recipe');
+      findMock.mockRejectedValue(mockedError);
 
       try {
         await getBy({ _id: '1' });

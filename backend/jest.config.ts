@@ -17,6 +17,7 @@ const config: Config = {
     '!src/config/**/*.ts',
     '!src/controllers/index.ts',
     '!src/routes/recipeRoutes.ts',
+    '!src/scripts/**/*.ts',
   ],
 };
 

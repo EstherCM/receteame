@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { create, getById, getRecipes, update, remove } from '../recipeCtrl';
 const recipeService = require('../../services/recipeService');
 
@@ -130,14 +131,14 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.getById.mockRejectedValue({ error: 'Error getting recipe' });
+      recipeService.getById.mockRejectedValue({ error: '[recipeCtrl-unit] Error getting recipe' });
 
       await getById(mockedReq as Request, mockedRes as Response, mockedNext);
 
       expect(mockedRes.json).toHaveBeenCalledTimes(0);
       expect(mockedRes.status).toHaveBeenCalledTimes(0);
       expect(mockedNext).toHaveBeenCalled();
-      expect(mockedNext.mock.calls[0][0]).toEqual({ error: 'Error getting recipe' });
+      expect(mockedNext.mock.calls[0][0]).toEqual({ error: '[recipeCtrl-unit] Error getting recipe' });
     });
   });
 
@@ -168,24 +169,28 @@ describe('[recipeCtrl] unit test', () => {
           type: ['Type1', 'Type2'],
         },
       ]);
+      recipeService.countRecipes.mockResolvedValue(1);
 
       await getRecipes(mockedReq as Request, mockedRes as Response, mockedNext);
 
       expect(mockedRes.status).toHaveBeenCalledWith(200);
-      expect(mockedRes.json).toHaveBeenCalledWith([
-        {
-          _id: 'mockedId',
-          name: 'mockedName',
-          image: 'mockedUrl',
-          ingredients: ['Ingredient1', 'Ingredient2'],
-          preparation: ['Preparation1', 'Preparation2'],
-          people: 4,
-          time: 240,
-          notes: 'mockedNotes',
-          tags: ['Tag1', 'Tag2'],
-          type: ['Type1', 'Type2'],
-        },
-      ]);
+      expect(mockedRes.json).toHaveBeenCalledWith({
+        recipes: [
+          {
+            _id: 'mockedId',
+            name: 'mockedName',
+            image: 'mockedUrl',
+            ingredients: ['Ingredient1', 'Ingredient2'],
+            preparation: ['Preparation1', 'Preparation2'],
+            people: 4,
+            time: 240,
+            notes: 'mockedNotes',
+            tags: ['Tag1', 'Tag2'],
+            type: ['Type1', 'Type2'],
+          },
+        ],
+        total: 1,
+      });
     });
 
     it('should failed when something is wrong', async () => {
@@ -200,14 +205,14 @@ describe('[recipeCtrl] unit test', () => {
       } as Partial<Response>;
       const mockedNext = jest.fn();
 
-      recipeService.getRecipes.mockRejectedValue({ error: 'Error getting recipes' });
+      recipeService.getRecipes.mockRejectedValue({ error: '[unit test] Error getting recipes' });
 
       await getRecipes(mockedReq as Request, mockedRes as Response, mockedNext);
 
       expect(mockedRes.json).toHaveBeenCalledTimes(0);
       expect(mockedRes.status).toHaveBeenCalledTimes(0);
       expect(mockedNext).toHaveBeenCalled();
-      expect(mockedNext.mock.calls[0][0]).toEqual({ error: 'Error getting recipes' });
+      expect(mockedNext.mock.calls[0][0]).toEqual({ error: '[unit test] Error getting recipes' });
     });
   });
 

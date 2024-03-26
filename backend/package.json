@@ -7,7 +7,7 @@
     "build:watch": "tsc --watch",
     "dev": "nodemon src/app.ts",
     "start": "ts-node src/app.ts",
-    "test": "jest --config jest.config.ts --detectOpenHandles",
+    "test": "jest --config jest.config.ts --detectOpenHandles --coverage",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],

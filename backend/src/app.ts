@@ -53,7 +53,7 @@ app.use((error: CustomError, req: Request, res: Response, next: NextFunction) =>
 });
 
 const server = app.listen(port, () => {
-  console.info(`🏃 App running in port: ${port}`);
+  console.info(`🏃 App running in port ${port}`);
 });
 
 module.exports = { app, server };
