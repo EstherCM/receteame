@@ -74,6 +74,8 @@ describe('[recipeService] unit test', () => {
     it('should find recipe', async () => {
       const mockedRecipe = {
         name: 'mockedName2',
+        time: '1-60',
+        ingredients: ['ingredient'],
         page: 1,
         pageSize: 9,
       };
@@ -82,7 +84,18 @@ describe('[recipeService] unit test', () => {
 
       await recipeService.getRecipes(mockedRecipe);
 
-      expect(recipeDAO.getBy).toHaveBeenCalledWith({ name: 'mockedName2' }, mockedRecipe.page, mockedRecipe.pageSize);
+      expect(recipeDAO.getBy).toHaveBeenCalledWith(
+        {
+          name: 'mockedName2',
+          time: {
+            $gte: 1,
+            $lte: 60,
+          },
+          ingredients: { $all: [/ingredient/i] },
+        },
+        mockedRecipe.page,
+        mockedRecipe.pageSize,
+      );
     });
 
     it('should failed when something is wrong', async () => {
@@ -99,7 +112,11 @@ describe('[recipeService] unit test', () => {
       const result = await recipeService.getRecipes(mockedRecipe);
 
       expect(result.error).toEqual({ error: mockedError });
-      expect(recipeDAO.getBy).toHaveBeenCalledWith({ name: 'mockedName2' }, mockedRecipe.page, mockedRecipe.pageSize);
+      expect(recipeDAO.getBy).toHaveBeenCalledWith(
+        { name: 'mockedName2' },
+        mockedRecipe.page,
+        mockedRecipe.pageSize,
+      );
     });
   });
 
@@ -184,6 +201,24 @@ describe('[recipeService] unit test', () => {
 
       expect(result.error).toEqual({ error: mockedError });
       expect(recipeDAO.remove).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('countRecipes', () => {
+    it('should call recipeDAO.countRecipes', async () => {
+      await recipeService.countRecipes();
+
+      expect(recipeDAO.countRecipes).toHaveBeenCalled();
+    });
+
+    it('should failed when something is wrong', async () => {
+      const mockedError = new Error('Error counting recipe');
+      recipeDAO.countRecipes.mockRejectedValueOnce({ error: mockedError });
+
+      const result = await recipeService.countRecipes();
+
+      expect(result.error).toEqual({ error: mockedError });
+      expect(recipeDAO.countRecipes).toHaveBeenCalled();
     });
   });
 });

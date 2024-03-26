@@ -1,6 +1,6 @@
 import { TypeRecipe } from 'recipe-models';
 
-import { create, getBy, update, remove } from '../recipeDAO';
+import { create, getBy, update, remove, countRecipes } from '../recipeDAO';
 const { Recipe } = require('../../models/recipeModel');
 
 console.error = jest.fn();
@@ -217,6 +217,31 @@ describe('[recipeDAO] unit test', () => {
         expect(e).toEqual(mockError);
       }
       expect(deleteMock).toHaveBeenCalledWith({ _id: id });
+    });
+  });
+
+  describe('countRecipes ', () => {
+    const countDocumentsMock = jest.fn();
+    Recipe.countDocuments = countDocumentsMock;
+
+    it('should return quantity of recipes', async () => {
+      const mockResult = 3;
+      countDocumentsMock.mockResolvedValue(mockResult);
+
+      const result = await countRecipes();
+
+      expect(result).toEqual(mockResult);
+    });
+
+    it("should return error when recipe couldn't be removed", async () => {
+      const mockError = new Error('[recipeDAO] Error counting recipes');
+      countDocumentsMock.mockRejectedValue(mockError);
+
+      try {
+        await countRecipes();
+      } catch (e) {
+        expect(e).toEqual(mockError);
+      }
     });
   });
 });

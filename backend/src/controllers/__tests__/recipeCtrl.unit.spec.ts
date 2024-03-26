@@ -119,6 +119,26 @@ describe('[recipeCtrl] unit test', () => {
       ]);
     });
 
+    it('should not get a recipe if id doesn\'t exist', async () => {
+      const mockedReq = {
+        params: {
+          _id: 'mockedId',
+        },
+      } as Partial<Request>;
+      const mockedRes = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      } as Partial<Response>;
+      const mockedNext = jest.fn();
+
+      recipeService.getById.mockResolvedValue([]);
+
+      await getById(mockedReq as Request, mockedRes as Response, mockedNext);
+
+      expect(mockedRes.json).toHaveBeenCalledWith({ error: 'Resource not found' });
+      expect(mockedRes.status).toHaveBeenCalledWith(404);
+    });
+
     it('should failed when something is wrong', async () => {
       const mockedReq = {
         params: {
@@ -143,7 +163,7 @@ describe('[recipeCtrl] unit test', () => {
   });
 
   describe('getRecipes', () => {
-    it('should get recipes', async () => {
+    it('should get recipes and the total of recipes', async () => {
       const mockedReq = {
         query: {
           _id: 'mockedId',
