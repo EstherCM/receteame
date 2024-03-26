@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { RecipesService } from '../../services/recipes.service';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pagination.component.html',
+  styleUrls: [
+    '../../../../styles/pagination.scss',
+    '../../../../styles/components/button.scss',
+  ],
 })
 export class PaginationComponent {
   totalPages: number[] = [];
 
-  constructor(private recipesService: RecipesService) {}
+  constructor(public recipesService: RecipesService) {}
 
   ngOnInit() {
     const recipesPerPage = this.recipesService.pageSize;

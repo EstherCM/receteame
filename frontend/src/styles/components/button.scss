@@ -8,9 +8,24 @@
   border: 2px solid #ffc341;
   border-radius: 12px;
   margin-top: 16px;
-  height: 56px;
   cursor: pointer;
   padding: 16px;
+
+  &--small {
+    width: 32px;
+    height: 32px;
+  }
+
+  &--current {
+    background-color: #FE675E;
+    border: 2px solid #FE675E;
+    color: white;
+  }
+
+  &--no-current {
+    background-color: transparent;
+    border: 2px solid transparent;
+  }
 
   &__logo {
     width: 20px;

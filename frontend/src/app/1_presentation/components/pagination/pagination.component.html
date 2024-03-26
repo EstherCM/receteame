@@ -1,7 +1,7 @@
 <main>
-  <section>
+  <section aria-label="Sección de la paginación" class="pagination">
     @for (page of totalPages; track $index) {
-    <button (click)="goToPage(page)">
+    <button (click)="goToPage(page)" class="pagination__page button button--small" [ngClass]="recipesService.currentPage === page ? 'button--current' : 'button--no-current'">
       {{ page }}
     </button>
     }
