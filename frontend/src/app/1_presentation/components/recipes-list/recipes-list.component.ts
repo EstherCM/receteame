@@ -8,9 +8,9 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { RecipesService } from '../../services/recipes.service';
 
 @Component({
-  selector: 'app-recipes',
+  selector: 'app-recipes-list',
   standalone: true,
-  templateUrl: './recipes.component.html',
+  templateUrl: './recipes-list.component.html',
   styleUrls: [
     '../../../../styles/recipes-view.scss',
     '../../../../styles/recipe-list.scss',
@@ -19,7 +19,7 @@ import { RecipesService } from '../../services/recipes.service';
   ],
   imports: [FiltersComponent, PaginationComponent, NgxSkeletonLoaderModule]
 })
-export class RecipesComponent implements OnInit {
+export class RecipesListComponent implements OnInit {
   recipes: IRecipe[] = [];
   showFilterBar = false;
   isLoading = true;
