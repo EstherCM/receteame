@@ -11,12 +11,28 @@ export const create = async (body: IRecipe) => {
   }
 };
 
-export const getBy = async (query: { [x: string]: string }, currentPage: number = 1, pageSize: number = 9) => {
+export const getBy = async (
+  query: { [x: string]: string },
+  currentPage: number = 1,
+  pageSize: number = 9
+) => {
   try {
     const skip = (currentPage - 1) * pageSize;
-    return await Recipe.find(query).skip(skip).limit(pageSize).exec();
+    return await Recipe.find(query)
+      .skip(skip)
+      .limit(pageSize)
+      .exec();
   } catch (e) {
     console.error(`🔥 [recipeDAO] Error getting recipe ${query._id}, ${e}`);
+    return e;
+  }
+};
+
+export const getById = async (id: string) => {
+  try {
+    return await Recipe.findById(id);
+  } catch (e) {
+    console.error(`🔥 [recipeDAO] Error getting recipe by id ${id}, ${e}`);
     return e;
   }
 };
@@ -48,4 +64,4 @@ export const countRecipes = async () => {
     console.error(`🔥 [recipeDAO] Error counting recipes, ${e}`);
     return e;
   }
-}
+};

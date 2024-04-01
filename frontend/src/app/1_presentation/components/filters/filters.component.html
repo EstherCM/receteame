@@ -18,6 +18,7 @@
             </mat-chip-row>
             }
             <input
+              id="ingredients"
               placeholder="Ingrediente..."
               [matChipInputFor]="chipGrid"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -45,8 +46,8 @@
       <div class="recipes-filters__item">
         <label for="time" class="recipes-filters__title" data-test="recipeTimeLabel">Tiempo</label>
         <mat-slider discrete [min]="min" [max]="max" formGroupName="time" [step]="stepValue" thumbLabel [displayWith]="formatLabel">
-          <input [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)" data-test="recipeMinTimeInput">
-          <input [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)" data-test="recipeMaxTimeInput">
+          <input id="time" [value]="min" matSliderStartThumb (input)="onSliderMinInput($event)" data-test="recipeMinTimeInput">
+          <input id="time" [value]="max" matSliderEndThumb (input)="onSliderMaxInput($event)" data-test="recipeMaxTimeInput">
         </mat-slider>
       </div>
       <div class="recipes-filters__item">

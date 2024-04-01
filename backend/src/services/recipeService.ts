@@ -33,7 +33,7 @@ const create = async ({
 
 const getById = async (id: string) => {
   try {
-    return await RecipeDAO.getBy({ _id: id });
+    return await RecipeDAO.getById(id);
   } catch (e) {
     return { error: e };
   }

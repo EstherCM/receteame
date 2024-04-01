@@ -1,6 +1,6 @@
 import { TypeRecipe } from 'recipe-models';
 
-import { create, getBy, update, remove, countRecipes } from '../recipeDAO';
+import { create, getBy, update, remove, countRecipes, getById } from '../recipeDAO';
 const { Recipe } = require('../../models/recipeModel');
 
 console.error = jest.fn();
@@ -93,20 +93,6 @@ describe('[recipeDAO] unit test', () => {
       },
     ];
 
-    it('should get a recipe by id', async () => {
-      const findMock = jest.fn().mockResolvedValue(recipes[0]);
-      Recipe.find = jest.fn(() => ({
-        skip: jest.fn().mockReturnThis(),
-        limit: jest.fn().mockReturnThis(),
-        exec: findMock,
-      }));
-
-      const result = await getBy({ _id: '1' });
-
-      expect(result).toEqual(recipes[0]);
-      expect(Recipe.find).toHaveBeenCalledWith({ _id: '1' });
-    });
-
     it('should get a recipe by name', async () => {
       const findMock = jest.fn().mockResolvedValue(recipes[1]);
       Recipe.find = jest.fn(() => ({
@@ -131,6 +117,45 @@ describe('[recipeDAO] unit test', () => {
       } catch (e) {
         expect(e).toEqual(mockedError);
       }
+    });
+  });
+
+  describe('getById', () => {
+    const recipes = [
+      {
+        _id: '1',
+        name: 'recipe1',
+        image: 'mockedUrl',
+        ingredients: ['Ingredient1', 'Ingredient2'],
+        preparation: ['Preparation1', 'Preparation2'],
+        people: 4,
+        time: 240,
+        notes: 'mockedNotes',
+        tags: ['Tag1', 'Tag2'],
+        type: [TypeRecipe.dinner],
+      },
+      {
+        _id: '2',
+        name: 'recipe2',
+        image: 'mockedUrl',
+        ingredients: ['Ingredient1', 'Ingredient2'],
+        preparation: ['Preparation1', 'Preparation2'],
+        people: 4,
+        time: 240,
+        notes: 'mockedNotes',
+        tags: ['Tag1', 'Tag2'],
+        type: [TypeRecipe.breakfast, TypeRecipe.dessert],
+      },
+    ];
+
+    it('should get a recipe by id', async () => {
+      const findByIdMock = jest.fn().mockResolvedValue(recipes[0]);
+      Recipe.findById = findByIdMock;
+
+      const result = await getById('1');
+
+      expect(result).toEqual(recipes[0]);
+      expect(Recipe.findById).toHaveBeenCalledWith('1');
     });
   });
 

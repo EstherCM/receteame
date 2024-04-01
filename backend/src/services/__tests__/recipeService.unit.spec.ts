@@ -47,26 +47,22 @@ describe('[recipeService] unit test', () => {
 
   describe('getById', () => {
     it('should find recipe by id', async () => {
-      const mockedRecipe = {
-        _id: '2',
-      };
+      const mockedRecipe = '2';
 
       await recipeService.getById('2');
 
-      expect(recipeDAO.getBy).toHaveBeenCalledWith(mockedRecipe);
+      expect(recipeDAO.getById).toHaveBeenCalledWith(mockedRecipe);
     });
 
     it('should failed when something is wrong', async () => {
-      const mockedRecipe = {
-        _id: '2',
-      };
+      const mockedRecipe = '2';
       const mockedError = new Error('[recipeService-unit] Error getting recipe');
-      recipeDAO.getBy.mockRejectedValueOnce({ error: mockedError });
+      recipeDAO.getById.mockRejectedValueOnce({ error: mockedError });
 
       const result = await recipeService.getById('2');
 
       expect(result.error).toEqual({ error: mockedError });
-      expect(recipeDAO.getBy).toHaveBeenCalledWith(mockedRecipe);
+      expect(recipeDAO.getById).toHaveBeenCalledWith(mockedRecipe);
     });
   });
 

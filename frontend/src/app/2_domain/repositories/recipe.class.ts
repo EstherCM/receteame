@@ -21,7 +21,7 @@ export class RecipeRepository {
         end: number;
       };
       type: TypeRecipe;
-    }>, page: number, pageSize: number
+    }>, page: number = 1, pageSize: number = 9
   ): Observable<{ recipes: IRecipe[], total: number }> {
     let queryParams = new HttpParams();
 
