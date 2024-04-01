@@ -10,6 +10,7 @@ import { RecipesService } from '../../services/recipes.service';
   standalone: true,
   imports: [],
   templateUrl: './recipes-detail.component.html',
+  styleUrls: ['../../../../styles/recipe-info.scss'],
 })
 export class RecipesDetailComponent {
   public recipeId!: string | null;
@@ -17,7 +18,10 @@ export class RecipesDetailComponent {
 
   private destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private route: ActivatedRoute, private recipesService: RecipesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private recipesService: RecipesService
+  ) {}
 
   ngOnInit() {
     this.recipeId = this.route.snapshot.paramMap.get('id') || '';
@@ -25,7 +29,7 @@ export class RecipesDetailComponent {
     this.recipesService
       .getById(this.recipeId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((initialSuperhero) => this.recipe = initialSuperhero);
+      .subscribe((initialSuperhero) => (this.recipe = initialSuperhero));
   }
 
   ngOnDestroy() {

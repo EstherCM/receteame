@@ -1,1 +1,20 @@
-<p>recipes-detail works!</p>
+<main>
+  <section aria-label="Detalle de la receta" class="recipe-info">
+    <section aria-label="Imagen" class="recipe-info__img">
+      <img
+        alt="Imagen de la receta"
+        [src]="recipe.image"
+        class="recipe-info__img"
+      />
+    </section>
+    <section aria-label="Información de la receta" class="recipe-info__props">
+      <h1>{{ recipe.name }}</h1>
+      <p>Ingredientes</p>
+      @for (ingredient of recipe.ingredients; track $index) {
+      <ul>
+        <li>{{ ingredient }}</li>
+      </ul>
+      }
+    </section>
+  </section>
+</main>

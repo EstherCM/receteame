@@ -1,0 +1,22 @@
+.recipe-info {
+  background-color: white;
+  height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+
+  &__img {
+    width: 50%;
+
+    & img {
+      width: 100%;
+      border-radius: 8px;
+    }
+  }
+
+  &__props {
+    display: flex;
+    flex-direction: column;
+  }
+}

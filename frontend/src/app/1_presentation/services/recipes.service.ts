@@ -12,6 +12,7 @@ export class RecipesService {
   public recipes$ = this.recipesSubject.asObservable();
 
   private recipeSubject = new BehaviorSubject<IRecipe>({
+    id: '',
     name: '',
     image: '',
     ingredients: [],

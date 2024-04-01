@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgxSkeletonLoaderConfigTheme } from 'ngx-skeleton-loader';
 import { IRecipe } from 'recipe-models';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { FiltersComponent } from '../filters/filters.component';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -12,12 +14,12 @@ import { RecipesService } from '../../services/recipes.service';
   standalone: true,
   templateUrl: './recipes-list.component.html',
   styleUrls: [
-    '../../../../styles/recipes-view.scss',
+    '../../../../styles/recipes-list-view.scss',
     '../../../../styles/recipe-list.scss',
     '../../../../styles/recipe-item.scss',
-    '../../../../styles/components/button.scss'
+    '../../../../styles/components/button.scss',
   ],
-  imports: [FiltersComponent, PaginationComponent, NgxSkeletonLoaderModule]
+  imports: [FiltersComponent, PaginationComponent, NgxSkeletonLoaderModule],
 })
 export class RecipesListComponent implements OnInit {
   recipes: IRecipe[] = [];
@@ -27,11 +29,17 @@ export class RecipesListComponent implements OnInit {
     width: '550px',
     height: '380px',
     borderRadius: '10px',
-    shape: 'rect'
+    shape: 'rect',
   };
   recipesPerPage = 9;
 
-  constructor(private el: ElementRef, private recipesService: RecipesService) {}
+  private destroy$: Subject<void> = new Subject<void>();
+
+  constructor(
+    private el: ElementRef,
+    private recipesService: RecipesService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.recipesService.get();
@@ -74,5 +82,14 @@ export class RecipesListComponent implements OnInit {
   updateRecipes(recipes: IRecipe[]) {
     this.recipes = recipes;
     this.closeFilters();
+  }
+
+  goToDetail(id: string) {
+    this.router.navigate(['/recipe', id]);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
