@@ -1,12 +1,14 @@
+@import 'variables';
+
 .recipe-info {
-  background-color: #EAE8E4;
-  height: calc(100vh - 72px);
+  background-color: $grey-color;
+  height: calc(100vh - $header-height);
   display: flex;
   align-items: center;
   justify-content: center;
 
   &__card {
-    background-color: #FFFFFF;
+    background-color: $white-color;
     border-radius: 8px;
     width: 80%;
     display: flex;

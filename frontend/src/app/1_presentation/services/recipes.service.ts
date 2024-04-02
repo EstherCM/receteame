@@ -11,18 +11,7 @@ export class RecipesService {
   private recipesSubject = new BehaviorSubject<IRecipe[]>([]);
   public recipes$ = this.recipesSubject.asObservable();
 
-  private recipeSubject = new BehaviorSubject<IRecipe>({
-    id: '',
-    name: '',
-    image: '',
-    ingredients: [],
-    preparation: [],
-    people: 0,
-    time: 0,
-    notes: '',
-    tags: [],
-    type: [TypeRecipe.first],
-  });
+  private recipeSubject = new BehaviorSubject<IRecipe | null>(null);
   public recipe$ = this.recipeSubject.asObservable();
 
   private totalItemsSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -74,6 +63,19 @@ export class RecipesService {
   }
 
   getById(id: string): Observable<IRecipe> {
-    return this.recipeRepository.getById(id).pipe(tap((recipe) => this.recipeSubject.next(recipe)));
+    return this.recipeRepository
+      .getById(id)
+      .pipe(tap((recipe) => this.recipeSubject.next(recipe)));
+  }
+
+  delete(id: string) {
+    return this.recipeRepository.delete(id).pipe(
+      tap(() => {
+        const currentRecipe = this.recipeSubject.value;
+        if (currentRecipe && currentRecipe.id === id) {
+          this.recipeSubject.next(null);
+        }
+      })
+    );
   }
 }

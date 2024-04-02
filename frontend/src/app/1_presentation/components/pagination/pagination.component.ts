@@ -14,7 +14,7 @@ import { RecipesService } from '../../services/recipes.service';
   ],
 })
 export class PaginationComponent {
-  totalPages: number[] = [];
+  public totalPages: number[] = [];
 
   constructor(public recipesService: RecipesService) {}
 

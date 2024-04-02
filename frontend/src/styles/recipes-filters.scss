@@ -1,3 +1,5 @@
+@import 'variables';
+
 .recipes-filters-container {
   visibility: hidden;
   position: fixed;
@@ -19,8 +21,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background: #fceed6;
-  background-image: radial-gradient(#ffd375 1px, transparent 0);
+  background: $light-yellow;
+  background-image: radial-gradient($yellow-color 1px, transparent 0);
   background-size: 48px 48px;
   background-position: 24px 24px;
   padding: 0px 16px;
@@ -43,10 +45,10 @@
   }
 
   &__value {
-    background-color: #ffd375;
+    background-color: $yellow-color;
     height: 56px;
     border-radius: 4px;
-    border: 2px solid #ffc341;
+    border: 2px solid $bold-yellow-color;
     font-family: "Be Vietnam Pro", sans-serif;
     font-size: 16px;
   }

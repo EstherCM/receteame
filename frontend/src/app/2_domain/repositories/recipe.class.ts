@@ -21,8 +21,10 @@ export class RecipeRepository {
         end: number;
       };
       type: TypeRecipe;
-    }>, page: number = 1, pageSize: number = 9
-  ): Observable<{ recipes: IRecipe[], total: number }> {
+    }>,
+    page: number = 1,
+    pageSize: number = 9
+  ): Observable<{ recipes: IRecipe[]; total: number }> {
     let queryParams = new HttpParams();
 
     if (filters.name !== undefined && filters.name !== '') {
@@ -66,5 +68,9 @@ export class RecipeRepository {
 
   getById(id: string): Observable<IRecipe> {
     return this.recipeAdapter.getById(id);
+  }
+
+  delete(id: string): Observable<IRecipe> {
+    return this.recipeAdapter.delete(id);
   }
 }

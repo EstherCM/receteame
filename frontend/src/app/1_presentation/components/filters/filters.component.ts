@@ -26,7 +26,7 @@ export class FiltersComponent {
   @Input() isOpen = false;
   @Output() recipes = new EventEmitter<IRecipe[]>();
 
-  searchRecipeForm = new FormGroup({
+  public searchRecipeForm = new FormGroup({
     name: new FormControl(''),
     ingredients: new FormArray([]),
     people: new FormArray([]),
@@ -36,13 +36,13 @@ export class FiltersComponent {
     }),
     type: new FormControl(),
   });
-  ingredients: string[] = [];
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  people = [1, 2, 4, 8];
-  min = 0;
-  max = 240;
-  stepValue = 5;
-  types = [
+  public ingredients: string[] = [];
+  public separatorKeysCodes: number[] = [ENTER, COMMA];
+  public people = [1, 2, 4, 8];
+  public min = 0;
+  public max = 240;
+  public stepValue = 5;
+  public types = [
     TypeRecipe.starter,
     TypeRecipe.first,
     TypeRecipe.second,

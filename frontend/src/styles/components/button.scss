@@ -1,11 +1,13 @@
+@import '../variables.scss';
+
 .button {
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 16px;
-  background-color: #FFD375;
-  border: 2px solid #ffc341;
+  background-color: $yellow-color;
+  border: 2px solid $bold-yellow-color;
   border-radius: 12px;
   margin-top: 16px;
   cursor: pointer;
@@ -16,10 +18,15 @@
     height: 32px;
   }
 
+  &--secondary {
+    background-color: $grey-color;
+    border: 2px solid $grey-color;
+  }
+
   &--current {
-    background-color: #FE675E;
-    border: 2px solid #FE675E;
-    color: white;
+    background-color: $pink-flamingo-color;
+    border: 2px solid $pink-flamingo-color;
+    color: $white-color;
   }
 
   &--no-current {

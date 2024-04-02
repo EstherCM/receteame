@@ -38,6 +38,7 @@ export class RecipeAdapter {
 
   delete(id: string): Observable<IRecipe> {
     const url = `${this.baseURL}/recipes/${id}`;
+
     return this.http.delete<IRecipe>(url);
   }
 }

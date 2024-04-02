@@ -5,23 +5,27 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { RecipesService } from '../../services/recipes.service';
 import { MinutesToHours } from '../../pipes/minutes-to-hours.pipe';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-recipes-detail',
   standalone: true,
-  imports: [MinutesToHours],
+  imports: [MinutesToHours, ConfirmationDialogComponent],
   templateUrl: './recipes-detail.component.html',
   styleUrls: ['../../../../styles/recipe-info.scss', '../../../../styles/components/logo.scss'],
 })
 export class RecipesDetailComponent {
   public recipeId!: string | null;
   public recipe!: IRecipe;
+  public deleteDialog = '¿Quieres eliminar esta receta?';
 
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
-    private recipesService: RecipesService
+    private recipesService: RecipesService,
+    private confirmationDialogService: ConfirmationDialogService
   ) {}
 
   ngOnInit() {
@@ -45,6 +49,10 @@ export class RecipesDetailComponent {
     const imagen = peopleLogo[this.recipe.people ?? 'default'];
 
     return `../../../../assets/${imagen}`;
+  }
+
+  showConfirmationDialog() {
+    this.confirmationDialogService.showDialog();
   }
 
   ngOnDestroy() {

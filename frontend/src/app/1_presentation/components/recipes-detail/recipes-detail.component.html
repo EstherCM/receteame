@@ -1,4 +1,5 @@
 <main class="recipe-info">
+  <app-confirmation-dialog [contentHtml]="deleteDialog"></app-confirmation-dialog>
   <section aria-label="Detalle de la receta" class="recipe-info__card">
     <section aria-label="Imagen" class="recipe-info__img">
       <img
@@ -18,6 +19,12 @@
           <img alt="Tiempo" src="../../../../assets/time.png" class="logo" />
           <p>{{ recipe.time | minutesToHours }}</p>
         </div>
+        <img
+          alt="Eliminar receta"
+          src="../../../../assets/delete.png"
+          class="logo logo--click"
+          (click)="showConfirmationDialog()"
+        />
       </section>
       <p>Ingredientes</p>
       <ul>

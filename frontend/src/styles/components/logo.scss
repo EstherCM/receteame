@@ -2,4 +2,8 @@
   width: 4%;
   height: 4%;
   margin: 8px;
+
+  &--click {
+    cursor: pointer;
+  }
 }

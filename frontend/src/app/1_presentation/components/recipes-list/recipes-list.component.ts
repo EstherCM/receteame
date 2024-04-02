@@ -22,16 +22,16 @@ import { RecipesService } from '../../services/recipes.service';
   imports: [FiltersComponent, PaginationComponent, NgxSkeletonLoaderModule],
 })
 export class RecipesListComponent implements OnInit {
-  recipes: IRecipe[] = [];
-  showFilterBar = false;
-  isLoading = true;
-  themeConfig: NgxSkeletonLoaderConfigTheme = {
+  public recipes: IRecipe[] = [];
+  public showFilterBar = false;
+  public isLoading = true;
+  public themeConfig: NgxSkeletonLoaderConfigTheme = {
     width: '550px',
     height: '380px',
     borderRadius: '10px',
     shape: 'rect',
   };
-  recipesPerPage = 9;
+  public recipesPerPage = 9;
 
   private destroy$: Subject<void> = new Subject<void>();
 
