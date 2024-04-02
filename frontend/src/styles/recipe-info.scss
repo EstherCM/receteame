@@ -1,13 +1,25 @@
 .recipe-info {
-  background-color: white;
+  background-color: #EAE8E4;
   height: calc(100vh - 72px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+
+  &__card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    max-height: 80%;
+    height: 80%;
+  }
 
   &__img {
-    width: 50%;
+    width: 40%;
+    margin: 8px;
 
     & img {
       width: 100%;
@@ -15,8 +27,24 @@
     }
   }
 
-  &__props {
+  &__information {
     display: flex;
     flex-direction: column;
+    width: 60%;
+    margin: 8px;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+
+  &__name {
+    font-size: 24px;
+  }
+
+  &__time {
+    display: flex;
+    align-items: center;
   }
 }

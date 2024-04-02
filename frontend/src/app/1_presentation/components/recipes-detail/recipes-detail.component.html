@@ -1,5 +1,5 @@
-<main>
-  <section aria-label="Detalle de la receta" class="recipe-info">
+<main class="recipe-info">
+  <section aria-label="Detalle de la receta" class="recipe-info__card">
     <section aria-label="Imagen" class="recipe-info__img">
       <img
         alt="Imagen de la receta"
@@ -7,13 +7,33 @@
         class="recipe-info__img"
       />
     </section>
-    <section aria-label="Información de la receta" class="recipe-info__props">
-      <h1>{{ recipe.name }}</h1>
+    <section
+      aria-label="Información de la receta"
+      class="recipe-info__information"
+    >
+      <section aria-label="Título de la receta" class="recipe-info__title">
+        <h1 class="recipe-info__name">{{ recipe.name }}</h1>
+        <img alt="Nº de personas" [src]="getPeopleLogo()" class="logo" />
+        <div class="recipe-info__time">
+          <img alt="Tiempo" src="../../../../assets/time.png" class="logo" />
+          <p>{{ recipe.time | minutesToHours }}</p>
+        </div>
+      </section>
       <p>Ingredientes</p>
-      @for (ingredient of recipe.ingredients; track $index) {
       <ul>
+        @for (ingredient of recipe.ingredients; track $index) {
         <li>{{ ingredient }}</li>
+        }
       </ul>
+      <p>Preparación</p>
+      <ol>
+        @for (preparation of recipe.preparation; track $index) {
+        <li>{{ preparation }}</li>
+        }
+      </ol>
+      @if (recipe.notes) {
+      <p>Notas</p>
+      <p>{{ recipe.notes }}</p>
       }
     </section>
   </section>
