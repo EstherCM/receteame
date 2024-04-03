@@ -14,8 +14,11 @@ export class RecipesService {
   private recipeSubject = new BehaviorSubject<IRecipe | null>(null);
   public recipe$ = this.recipeSubject.asObservable();
 
-  private totalItemsSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private totalItemsSubject = new BehaviorSubject<number>(0);
   public totalItems$: Observable<number> = this.totalItemsSubject.asObservable();
+
+  private recipeDeletedSubject = new BehaviorSubject<boolean>(false);
+  public recipeDeleted$ = this.recipeDeletedSubject.asObservable();
 
   private filters: Partial<{
     name: string;
@@ -70,11 +73,13 @@ export class RecipesService {
 
   delete(id: string) {
     return this.recipeRepository.delete(id).pipe(
-      tap(() => {
+      tap((deletedRecipe) => {
         const currentRecipe = this.recipeSubject.value;
+
         if (currentRecipe && currentRecipe.id === id) {
           this.recipeSubject.next(null);
         }
+        return Boolean(deletedRecipe);
       })
     );
   }

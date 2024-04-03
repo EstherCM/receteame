@@ -42,12 +42,22 @@ export class RecipesListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadRecipes();
+    document.addEventListener('click', (event) => this.handleOutFilterClick(event));
+
+    this.recipesService.recipeDeleted$.subscribe((isDeleted) => {
+      if (isDeleted) {
+        this.loadRecipes();
+      }
+    });
+  }
+
+  private loadRecipes() {
     this.recipesService.get();
     this.recipesService.recipes$.subscribe((recipes) => {
       this.recipes = recipes;
       this.isLoading = false;
     });
-    document.addEventListener('click', (event) => this.handleOutFilterClick(event));
   }
 
   closeFilters() {

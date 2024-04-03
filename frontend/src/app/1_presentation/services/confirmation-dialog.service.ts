@@ -1,39 +1,27 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfirmationDialogService {
-  private showDialogSubject = new Subject<void>();
-  private confirmSubject = new Subject<void>();
-  private cancelSubject = new Subject<void>();
+  private showDialogSubject = new BehaviorSubject<boolean>(false);
+  public showDialog$ = this.showDialogSubject.asObservable();
+
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
+  public isLoading$ = this.isLoadingSubject.asObservable();
+
+  private confirmActionSubject = new BehaviorSubject<boolean>(false);
+  public confirmAction$ = this.confirmActionSubject.asObservable();
 
   constructor() {}
 
   showDialog() {
-    this.showDialogSubject.next();
+    this.showDialogSubject.next(true);
   }
 
-  getDialogResponse(): Observable<void> {
-    return this.showDialogSubject.asObservable();
-  }
-
-  confirm() {
-    this.confirmSubject.next();
-  }
-
-  getConfirmResponse(): Observable<void> {
-    return this.confirmSubject.asObservable();
-  }
-
-  cancel() {
-    this.cancelSubject.next();
-  }
-
-  getCancelResponse(): Observable<void> {
-    return this.cancelSubject.asObservable();
+  closeDialog() {
+    this.showDialogSubject.next(false);
   }
 
   startLoading() {
@@ -46,5 +34,13 @@ export class ConfirmationDialogService {
 
   getLoadingStatus(): Observable<boolean> {
     return this.isLoadingSubject.asObservable();
+  }
+
+  confirm() {
+    this.confirmActionSubject.next(true);
+  }
+
+  closeConfirmation() {
+    this.confirmActionSubject.next(false);
   }
 }

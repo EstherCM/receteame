@@ -12,6 +12,6 @@ router.get('/recipes/:id', getById);
 
 router.put('/recipes/:id', dataSecurity, update);
 
-router.delete('/recipes/:id', dataSecurity, remove);
+router.delete('/recipes/:id', remove);
 
 module.exports = router;

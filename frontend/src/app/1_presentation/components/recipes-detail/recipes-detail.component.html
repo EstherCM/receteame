@@ -26,22 +26,24 @@
           (click)="showConfirmationDialog()"
         />
       </section>
-      <p>Ingredientes</p>
-      <ul>
-        @for (ingredient of recipe.ingredients; track $index) {
-        <li>{{ ingredient }}</li>
+      <section aria-label="Descripción de la receta" class="recipe-info__description">
+        <p>Ingredientes</p>
+        <ul>
+          @for (ingredient of recipe.ingredients; track $index) {
+          <li>{{ ingredient }}</li>
+          }
+        </ul>
+        <p>Preparación</p>
+        <ol>
+          @for (preparation of recipe.preparation; track $index) {
+          <li>{{ preparation }}</li>
+          }
+        </ol>
+        @if (recipe.notes) {
+        <p>Notas</p>
+        <p>{{ recipe.notes }}</p>
         }
-      </ul>
-      <p>Preparación</p>
-      <ol>
-        @for (preparation of recipe.preparation; track $index) {
-        <li>{{ preparation }}</li>
-        }
-      </ol>
-      @if (recipe.notes) {
-      <p>Notas</p>
-      <p>{{ recipe.notes }}</p>
-      }
+      </section>
     </section>
   </section>
 </main>

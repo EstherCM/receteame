@@ -4,13 +4,11 @@
     aria-label="Sección de confirmación de acción"
     class="confirmation-dialog"
   >
-    @if (!isLoading) {
     <p [innerHTML]="contentHtml"></p>
     <section aria-label="Botonera" class="confirmation-dialog__buttons">
       <button (click)="confirm()" class="button">Aceptar</button>
-      <button (click)="cancel()" class="button button--secondary">Cancelar</button>
+      <button (click)="close()" class="button button--secondary">Cancelar</button>
     </section>
-    }
   </section>
   }
 </main>

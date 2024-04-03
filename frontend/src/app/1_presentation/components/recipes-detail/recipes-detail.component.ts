@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IRecipe } from 'recipe-models';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -13,7 +13,10 @@ import { ConfirmationDialogService } from '../../services/confirmation-dialog.se
   standalone: true,
   imports: [MinutesToHours, ConfirmationDialogComponent],
   templateUrl: './recipes-detail.component.html',
-  styleUrls: ['../../../../styles/recipe-info.scss', '../../../../styles/components/logo.scss'],
+  styleUrls: [
+    '../../../../styles/recipe-info.scss',
+    '../../../../styles/components/logo.scss',
+  ],
 })
 export class RecipesDetailComponent {
   public recipeId!: string | null;
@@ -25,7 +28,8 @@ export class RecipesDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private recipesService: RecipesService,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -35,6 +39,12 @@ export class RecipesDetailComponent {
       .getById(this.recipeId)
       .pipe(takeUntil(this.destroy$))
       .subscribe((initialSuperhero) => (this.recipe = initialSuperhero));
+
+    this.confirmationDialogService.confirmAction$.subscribe((value) => {
+      if (value) {
+        this.delete();
+      }
+    });
   }
 
   getPeopleLogo() {
@@ -42,7 +52,7 @@ export class RecipesDetailComponent {
       1: '1person.png',
       2: '4people.png', // TODO: cambiar a 2
       4: '4people.png',
-      8: '4people.png',  // TODO: cambiar a 8
+      8: '4people.png', // TODO: cambiar a 8
       default: 'none.png', // TODO: encontrar logo para ninguno
     };
 
@@ -53,6 +63,16 @@ export class RecipesDetailComponent {
 
   showConfirmationDialog() {
     this.confirmationDialogService.showDialog();
+  }
+
+  private delete() {
+    const id = this.recipeId || '';
+
+    this.recipesService.delete(id).subscribe((isDeleted) => {
+      this.confirmationDialogService.closeDialog();
+      this.confirmationDialogService.closeConfirmation();
+      this.router.navigate(['/']);
+    });
   }
 
   ngOnDestroy() {
