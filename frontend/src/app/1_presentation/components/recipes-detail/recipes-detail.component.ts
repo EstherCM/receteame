@@ -56,7 +56,7 @@ export class RecipesDetailComponent {
       default: 'none.png', // TODO: encontrar logo para ninguno
     };
 
-    const imagen = peopleLogo[this.recipe.people ?? 'default'];
+    const imagen = peopleLogo[this.recipe?.people ?? 'default'];
 
     return `../../../../assets/${imagen}`;
   }

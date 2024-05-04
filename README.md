@@ -13,3 +13,4 @@
 - Personas iconos creados por kornkun - Flaticon
 - Hora y fecha iconos creados por Octopocto - Flaticon
 - Eliminar iconos creados por Arkinasi - Flaticon
+- Editar iconos creados por Becris - Flaticon</a>

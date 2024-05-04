@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class MinutesToHours implements PipeTransform {
-  transform(minutes: number): string {
+  transform(minutes: number | undefined): string {
     if (!minutes || minutes < 0) {
       return '0h 0m';
     }
