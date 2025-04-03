@@ -1,7 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
+import { IRecipe } from 'recipe-models';
+
 const Schema = mongoose.Schema;
 
-const recipeSchema = new Schema(
+interface IRecipeModel extends IRecipe {
+  createdBy: Types.ObjectId;
+}
+
+const recipeSchema = new Schema<IRecipeModel>(
   {
     name: {
       type: String,
@@ -35,7 +41,7 @@ const recipeSchema = new Schema(
     },
   },
   {
-    timestamp: true,
+    timestamps: true,
     toJSON: {
       virtuals: true,
       transform: (doc: Document, ret: any) => {

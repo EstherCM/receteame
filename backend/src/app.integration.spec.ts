@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const request = require('supertest');
-const { app, server } = require('./app');
-const { Recipe } = require('./database/models/recipeModel');
+import mongoose from 'mongoose';
+import request from 'supertest';
+import { app, server } from './app';
+import { Recipe } from './database/models/recipeModel';
 
 console.info = jest.fn();
 

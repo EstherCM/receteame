@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-const createError = require('http-errors');
-const recipeDAO = require('../database/daos/recipeDAO');
+import createError from 'http-errors';
+import recipeDAO from '../database/daos/recipeDAO';
 
 export const validCreateRecipeEvent = (req: Request, res: Response, next: NextFunction) => {
   const { body: { name, ingredients, preparation } } = req;
@@ -16,12 +16,14 @@ export const dataSecurity = async (req: Request, res: Response, next: NextFuncti
   const { body: { id: userId }, params: { id: recipeId } } = req;
 
   try {
-    const [foundRecipe] = await recipeDAO.getBy({ _id: recipeId });
+    const found = await recipeDAO.getBy({ _id: recipeId });
 
-    if (!foundRecipe) {
+    if (!found) {
       console.error('🤷 Recipe not found', recipeId);
       return next(createError(404));
     }
+
+    const [foundRecipe] = found;
 
     if (foundRecipe.createdBy != userId) {
       console.error('❌ Recipe owns another user');

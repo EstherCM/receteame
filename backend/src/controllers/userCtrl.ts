@@ -1,4 +1,4 @@
-const createError = require('http-errors');
+import createError from 'http-errors';
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../database/models/userModel';
 

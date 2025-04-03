@@ -1,7 +1,6 @@
 import { IRecipe } from 'recipe-models';
-
-const RecipeDAO = require('../database/daos/recipeDAO');
-const _ = require('underscore');
+import RecipeDAO from '../database/daos/recipeDAO';
+import _ from 'underscore';
 
 const create = async ({
   name,
@@ -35,11 +34,11 @@ const getById = async (id: string) => {
   try {
     return await RecipeDAO.getById(id);
   } catch (e) {
-    return { error: e };
+    return null;
   }
 };
 
-const getRecipes = async (query: { [x: string]: string | string[] | number }) => {
+const getRecipes = async (query: any) => {
   let criterial: any = {};
 
   const propsToFind = ['name', 'ingredients', 'people', 'time', 'type'];
@@ -59,7 +58,9 @@ const getRecipes = async (query: { [x: string]: string | string[] | number }) =>
   });
 
   try {
-    return await RecipeDAO.getBy(criterial, query.page, query.pageSize);
+    const page = Number(query.page);
+    const pageSize = Number(query.pageSize);
+    return await RecipeDAO.getBy(criterial, page, pageSize);
   } catch (e) {
     return { error: e };
   }
@@ -106,7 +107,7 @@ const countRecipes = async () => {
   }
 };
 
-module.exports = {
+export default {
   create,
   getById,
   getRecipes,

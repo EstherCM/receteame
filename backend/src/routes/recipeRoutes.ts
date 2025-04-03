@@ -1,17 +1,17 @@
 import express from 'express';
-const router = express.Router();
-
 import { create, getById, getRecipes, update, remove } from '../controllers/recipeCtrl';
 import { validCreateRecipeEvent, dataSecurity } from '../middlewares/recipeMiddleware';
 
-router.post('/recipes', validCreateRecipeEvent, create);
+const recipesRoutes = express.Router();
 
-router.get('/recipes', getRecipes);
+recipesRoutes.post('/recipes', validCreateRecipeEvent, create);
 
-router.get('/recipes/:id', getById);
+recipesRoutes.get('/recipes', getRecipes);
 
-router.put('/recipes/:id', dataSecurity, update);
+recipesRoutes.get('/recipes/:id', getById);
 
-router.delete('/recipes/:id', remove);
+recipesRoutes.put('/recipes/:id', dataSecurity, update);
 
-module.exports = router;
+recipesRoutes.delete('/recipes/:id', dataSecurity, remove);
+
+export default recipesRoutes;

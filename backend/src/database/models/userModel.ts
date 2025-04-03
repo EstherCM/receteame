@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 export interface IUser {
@@ -7,7 +8,7 @@ export interface IUser {
   password: string;
 }
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -23,7 +24,7 @@ const userSchema = new Schema(
     },
   },
   {
-    timestamp: true,
+    timestamps: true,
     toJSON: {
       virtuals: true,
       transform: (doc: Document, ret: any) => {
